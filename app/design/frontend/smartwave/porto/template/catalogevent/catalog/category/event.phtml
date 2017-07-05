@@ -1,0 +1,131 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Catalog Event category page
+ *
+ * @see Enterprise_CatalogEvent_Block_Catalog_Category_Event
+ */
+?>
+<?php $_event = $this->getEvent(); ?>
+<?php if ($this->canDisplay()): ?>
+<div class="clearer"></div>
+<div class="container">
+<div class="event-container container-<?php echo $_event->getStatus()?>">
+<div class="event <?php echo $_event->getStatus()?>">
+    <div class="event-title">
+        <em class="icon-tag-line"></em>
+        <?php switch ($_event->getStatus()):
+            case 'upcoming': ?>
+        <p><?php echo $this->__("Don't Miss Out"); ?></p>
+        <h4><?php echo $this->__("Sale Coming Soon:"); ?></h4>
+        <?php break;
+            case 'open': ?>
+        <p><?php echo $this->__("Hurry Up"); ?></p>
+        <h4><?php echo $this->__("Sale Ends In:"); ?></h4>
+        <?php break;
+            case 'closed': ?>
+        <p><?php echo $this->__("Wooops"); ?></p>
+        <h4><?php echo $this->__("Sale Ended:"); ?></h4>
+        <?php break; ?>
+        <?php endswitch; ?>
+    </div>
+    <div class="event-ticker">
+<?php switch ($_event->getStatus()):
+        case 'upcoming': ?>
+        <div class="event-dates">
+            <p class="start">
+                <?php
+                    $start_date=date_create($this->getEventDate('start', $_event));
+                ?>
+                <span class="desc"><?php echo $this->__('Starts At:'); ?></span>
+                <span class="date"><?php echo date_format($start_date,"d"); ?></span>
+                <span class="year-month"><?php echo date_format($start_date,"M Y"); ?></span>
+                <span class="time"><?php echo $this->getEventTime('start', $_event, 'hh a zzz'); ?></span>
+            </p>
+            <p class="end">
+                <?php
+                    $end_date=date_create($this->getEventDate('end', $_event));
+                ?>
+                <span class="desc"><?php echo $this->__('Ends At:'); ?></span>
+                <span class="date"><?php echo date_format($end_date,"d"); ?></span>
+                <span class="year-month"><?php echo date_format($end_date,"M Y"); ?></span>
+                <span class="time"><?php echo $this->getEventTime('end', $_event, 'hh a zzz'); ?></span>
+            </p>
+        </div>
+    <?php break;
+        case 'open': ?>
+        <div class="event-ticker" id="event-ticker-<?php echo $_event->getId()?>">
+            <span><span class="value days">00</span><span class="label">Days</span></span>
+            <span><span class="value hour">00</span><span class="label">Hrs</span></span>
+            <span><span class="value minute">00</span><span class="label">Mins</span></span>
+            <span><span class="value second">00</span><span class="label">Secs</span></span>
+        </div>
+        <script type="text/javascript">
+        new Enterprise.CatalogEvent.Ticker('event-ticker-<?php echo $_event->getId()?>', <?php echo $this->getSecondsToClose($_event); ?>);
+        </script>
+    <?php break;
+        case 'closed': ?>
+        <div class="event-dates">
+            <p class="start">
+                <?php
+                    $start_date=date_create($this->getEventDate('start', $_event));
+                ?>
+                <span class="desc"><?php echo $this->__('Starts At:'); ?></span>
+                <span class="date"><?php echo date_format($start_date,"d"); ?></span>
+                <span class="year-month"><?php echo date_format($start_date,"M Y"); ?></span>
+                <span class="time"><?php echo $this->getEventTime('start', $_event, 'hh a zzz'); ?></span>
+            </p>
+            <p class="end">
+                <?php
+                    $end_date=date_create($this->getEventDate('end', $_event));
+                ?>
+                <span class="desc"><?php echo $this->__('Ends At:'); ?></span>
+                <span class="date"><?php echo date_format($end_date,"d"); ?></span>
+                <span class="year-month"><?php echo date_format($end_date,"M Y"); ?></span>
+                <span class="time"><?php echo $this->getEventTime('end', $_event, 'hh a zzz'); ?></span>
+            </p>
+        </div>
+    <?php break; ?>
+<?php endswitch; ?>
+    </div>
+    <div class="event-desc">
+        <?php switch ($_event->getStatus()):
+            case 'upcoming': ?>
+            <?php echo $this->__('Stay Tuned!'); ?>
+        <?php break;
+            case 'open': ?>
+            <?php echo $this->__('Last Chance To Buy!'); ?>
+        <?php break;
+            case 'closed': ?>
+            <?php echo $this->__('New Sale Coming Soon!'); ?>
+        <?php break; ?>
+        <?php endswitch; ?>
+    </div>
+</div>
+</div>
+</div>
+<?php endif; ?>

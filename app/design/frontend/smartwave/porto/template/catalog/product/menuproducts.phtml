@@ -1,0 +1,27 @@
+<?php 
+echo $catid = $this->getCategoryId();
+$store_id = Mage::app()->getStore()->getStoreId();
+$categorydatas = Mage::getModel('catalog/category')->setStoreId($store_id)->load($catid);
+echo $categorydatas['children_count'];
+    if($categorydatas['children_count'] == 0 ){ ?>
+    <?php 
+  $products = Mage::getModel('catalog/category')->load($catid)
+ ->getProductCollection()
+ ->addAttributeToSelect('*') // add all attributes - optional
+ ->addAttributeToFilter('status', 1) // enabled
+ ->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+ ->setOrder('id', 'DESC');
+  $products->getSelect()->limit(10); ?>
+<ul>
+  <?php foreach ($products as $_productm){
+    $_productm = Mage::getModel('catalog/product')->load($_productm->getId());
+//    echo "<pre>";
+//    print_r($_product->getData());
+  ?>      
+    <li><a href="<?php echo $_productm->getProductUrl(); ?>"><?php echo $_productm->getName(); ?></a></li>     
+ <?php } ?>
+</ul>
+
+ <?php }else{ ?>
+  
+<?php } ?>

@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Tour view template
+ *
+ * @category    ZombieStudio
+ * @package     ZombieStudio_Tour
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_tour = $this->getCurrentTour();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title tour-title">
+    <h1><?php echo $_tour->getAlng(); ?></h1>
+</div>
+<div class="tour-view">
+    <div class="tour-aname">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Class name');?>:<?php echo $_tour->getAname();?>
+
+    </div>
+    <div class="tour-bgcolor">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Background color');?>:<?php echo $_tour->getBgcolor();?>
+
+    </div>
+    <div class="tour-color">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Color');?>:<?php echo $_tour->getColor();?>
+
+    </div>
+    <div class="tour-position">
+        <?php echo Mage::helper('zombiestudio_tour')->__("Position");?>:<?php echo Mage::getSingleton('zombiestudio_tour/tour_attribute_source_position')->getOptionText($_tour->getPosition());?>
+
+    </div>
+    <div class="tour-atext">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Text');?>:<?php echo $_tour->getAtext();?>
+
+    </div>
+    <div class="tour-atime">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Time in ms');?>:<?php echo $_tour->getAtime();?>
+
+    </div>
+    <div class="tour-alng">
+        <?php echo Mage::helper('zombiestudio_tour')->__('Language');?>:<?php echo $_tour->getAlng();?>
+
+    </div>
+
+</div>

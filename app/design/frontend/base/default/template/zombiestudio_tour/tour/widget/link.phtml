@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Tour link widget template
+ *
+ * @category    ZombieStudio
+ * @package     ZombieStudio_Tour
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_tour = $this->getCurrentTour();?>
+<?php if ($_tour) :?>
+    <div class="tour-widget-link">
+        <a href="<?php echo $_tour->getTourUrl()?>"><?php echo $_tour->getAtext()?></a>
+    </div>
+<?php endif;?>

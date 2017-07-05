@@ -1,0 +1,11 @@
+<?php $_product = $this->getProduct();
+	$id = $_product->getVesbrand();
+?>
+<?php if( $id && Mage::getStoreConfig( "ves_brand/general_setting/enable_icon" ) && Mage::getStoreConfig( "ves_brand/general_setting/show" ) ): $brand =  $this->helper('ves_brand/data')->getBrandById($id); ?>
+<div class="product-brand" style="clear:both">
+	<a href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+            <?php echo $brand->getTitle();?>
+<!--		<img width="150px" src="<?php echo $brand->getIconUrl();?>" alt="<?php echo $brand->getTitle();?>"/>-->
+	</a>
+</div>
+<?php endif; ?>

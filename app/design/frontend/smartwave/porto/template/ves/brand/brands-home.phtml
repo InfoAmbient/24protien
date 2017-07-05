@@ -1,0 +1,112 @@
+<?php 
+ /*------------------------------------------------------------------------
+  # VenusTheme Brand Module 
+  # ------------------------------------------------------------------------
+  # author:    VenusTheme.Com
+  # copyright: Copyright (C) 2012 http://www.venustheme.com. All Rights Reserved.
+  # @license: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+  # Websites: http://www.venustheme.com
+  # Technical Support:  http://www.venustheme.com/
+-------------------------------------------------------------------------*/
+
+$span_large = floor(12/$grid_col_ls);
+$span_medium = floor(12/$grid_col_ms);
+$span_small = floor(12/$grid_col_ss);
+$span_mini = floor(12/$grid_col_mss);
+
+
+$layout_mode = $this->getLayoutMode();
+if("list" == $layout_mode ) {
+	$span_large = $span_medium = $span_small = $span_mini = 12;
+}
+$collections = Mage::getModel('ves_brand/group')->getCollection()
+    ->addFieldToFilter("status", array("eq" => 1))
+    ->setPageSize($limit)
+    ->setOrder("group_id","DESC");
+//echo "<pre>";
+//print_r($collection->getData());
+//
+//die()
+?>
+<div class="home-brands-section">
+<div id="horizontalTabbrands">
+<ul>
+    <?php $i=1; foreach ($collections as $collection){
+//        echo "<pre>";
+//        print_r($collection->getData());
+        ?>
+    <li><a href="#tab-<?php echo $collection->getGroupId().''.$collection->getGroupId(); ?>"><?php echo $this->__($collection->getName()); ?></a></li>
+    
+    <?php $i++; } ?> 
+</ul>
+<?php
+foreach ($collections as $catid){
+    //$collections = Mage::getModel('ves_brand/group')->getCollection()->load();
+    $identifer = $catid->getIdentifier().".html";
+    $gid = $catid->getGroupId();
+    $collectionbrands = Mage::getModel('ves_brand/brand')->getCollection()->addFieldToFilter("group_brand_id",$gid)->addFieldToFilter("is_active",1);
+    $collectionbrands->getSelect()->limit(8);
+  ?>
+<div id="tab-<?php echo $gid.''.$gid; ?>">
+        <ul>
+      <?php $i = 1; foreach ($collectionbrands as $brand){
+          ?>
+            <li>
+                <div class="brand-item">
+                    <a class="brand-logo" href="<?php echo $brand->getLink(); ?>" title="<?php echo $brand->getTitle(); ?>">
+                        <img src="<?php echo $brand->getFileUrl(); ?>" alt="<?php echo $brand->getTitle(); ?>" />
+                    </a>
+                </div>
+           </li> 
+            
+            
+      <?php } ?> 
+        </ul>
+    <?php if(count($collectionbrands)>0){ ?>
+    <div class="view-more-link-category"><a href="<?php echo $this->getUrl('ves-brand').$identifer ?>"><?php echo $this->__('View More')?></a></div>
+<?php } ?>
+</div>
+  <?php } ?>          
+</div>
+<script type="text/javascript">
+        jQuery(document).ready(function () {
+            var $tabs = jQuery('#horizontalTabbrands');
+            $tabs.responsiveTabs({
+                rotate: false,
+                startCollapsed: 'accordion',
+                collapsible: 'accordion',
+                setHash: true,
+                click: function(e, tab) {
+                    jQuery('.info').html('Tab <strong>' + tab.id + '</strong> clicked!');
+                },
+                activate: function(e, tab) {
+                  jQuery('.info').html('Tab <strong>' + tab.id + '</strong> activated!');
+                },
+                activateState: function(e, state) {
+                    //console.log(state);
+                    jQuery('.info').html('Switched from <strong>' + state.oldState + '</strong> state to <strong>' + state.newState + '</strong> state!');
+                }
+            });
+
+           jQuery('#start-rotation').on('click', function() {
+                $tabs.responsiveTabs('startRotation', 1000);
+            });
+            jQuery('#stop-rotation').on('click', function() {
+                $tabs.responsiveTabs('stopRotation');
+            });
+            jQuery('#start-rotation').on('click', function() {
+                $tabs.responsiveTabs('active');
+            });
+           jQuery('#enable-tab').on('click', function() {
+                $tabs.responsiveTabs('enable', 3);
+            });
+           jQuery('#disable-tab').on('click', function() {
+                $tabs.responsiveTabs('disable', 3);
+            });
+            jQuery('.select-tab').on('click', function() {
+                $tabs.responsiveTabs('activate', jQuery(this).val());
+            });
+
+        });
+    </script>
+</div>

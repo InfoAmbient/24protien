@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <zombiestudio_tour translate="title" module="zombiestudio_tour">
+                                        <title>Tour</title>
+                                    </zombiestudio_tour>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <zombiestudio_tour translate="title" module="zombiestudio_tour">
+                        <title>ZS Tour</title>
+                        <children>
+                            <tour translate="title" module="zombiestudio_tour">
+                                <title>Tour</title>
+                                <sort_order>0</sort_order>
+                            </tour>
+                        </children>
+                    </zombiestudio_tour>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <zombiestudio_tour translate="title" module="zombiestudio_tour">
+            <title>ZS Tour</title>
+            <sort_order>76</sort_order>
+            <children>
+                <tour translate="title" module="zombiestudio_tour">
+                    <title>Tour</title>
+                    <action>adminhtml/tour_tour</action>
+                    <sort_order>0</sort_order>
+                </tour>
+            </children>
+        </zombiestudio_tour>
+    </menu>
+</config>

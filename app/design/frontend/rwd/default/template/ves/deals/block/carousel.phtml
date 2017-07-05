@@ -1,0 +1,117 @@
+<?php
+	/*framework: get current theme setting*/
+	$list_image_width = (int)$this->getEffectConfig("image_width", 300);
+	$list_image_height = (int)$this->getEffectConfig("image_height", 300);
+	$swap_image_number = (int)$this->getEffectConfig("swap_image_number", 0);
+
+	$popup_quickview_width = $this->getEffectConfig("popup_quickview_width", "60%");
+	$popup_quickview_height = $this->getEffectConfig("popup_quickview_height", "80%");
+
+	$enable_pzoom = $this->getConfig("show_pzoom");
+	$enable_new_icon = $this->getConfig("enable_new_icon");
+	$enable_sale_icon = $this->getConfig("enable_sale_icon");
+	$show_title = $this->getConfig('show_title');
+	$enable_short_desc = $this->getConfig('show_desc');
+	$show_review = $this->getConfig('show_review');
+	$show_price = $this->getConfig('show_price');
+	$show_addcart = $this->getConfig("show_addcart");
+	$show_compare_wishlist = $this->getConfig("show_wc") ;
+	/*end get setting*/
+
+	/*quickview was enabled?*/
+	$quickview = $this->getConfig('enable_quickview');
+	$quickview = $quickview ? $quickview : 0;
+	/*Swap images was enabled?*/
+	$swap_image = $this->getConfig('enable_swap');
+	$swap_image = $swap_image ? $swap_image : 0;
+
+	$moduleId = rand().time();
+	$itemsperpage = (int)$this->getEffectConfig("max_items");
+	$auto_play_mode = (int)$this->getEffectConfig("auto_play");
+
+	$title_maxchar = (int)$this->getEffectConfig("titleMaxchar");
+	$title_maxchar = $title_maxchar > 0 ?$title_maxchar: 100;
+	$desc_maxchar = (int)$this->getEffectConfig("descMaxchar");
+	$desc_maxchar = $desc_maxchar > 0 ?$desc_maxchar: 100;
+	$interval = (int)$this->getEffectConfig("interval");
+
+	$auto_play = $auto_play_mode?"true":"false";
+	$cols = (int)$this->getEffectConfig("limit_cols");
+	$cols = !empty($cols)?$cols:1;
+	$span = 12/$cols;
+	$active = 'latest';
+
+	$boatLookProducts = Mage::getModel('catalog/product')
+    ->getCollection()
+    ->addAttributeToSelect('*')
+    ->addAttributeToFilter('todaydeal', 1)
+    ->setPageSize(5)
+    ->load()
+    ->getItems();
+
+	if($items){
+		// $items = $items->getItems();
+		$items = $boatLookProducts;
+	}
+
+	// echo '<pre>';
+	// print_r($items);
+	// echo '</pre>';
+	
+	$default_layout = "deals.phtml";
+	$enable_deals = true;
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl('skin') ?>frontend/rwd/default/css/jquery.bxslider.min.css" media="all" />
+<div class="<?php echo $this->getConfig('prefix');?> block productcarousel" id="module<?php echo $moduleId; ?>">
+	<?php if($this->getConfig('title')){?>
+	<div class="bx-wrapper">
+		<h1><?php echo $this->getConfig('title')?></h1>
+        <div style="display:none;" >  <?php echo $first_targetDate = date('m/d/Y \2\3\:\5\9\:\0\0', strtotime($to_date)); ?> </div>
+		<span><?php echo $this->__('END IN') ?></span>
+	  	<div id="item<?php echo $module; ?>countdown_<?php echo $module ?>" class="item-countdown "></div>
+		<div class="bx-viewport">
+        <ul  id="slider1" >
+            <?php foreach($items as $item) {   ?>
+                <li>
+                    
+					<div class="product-hover">
+					    <img src="<?php echo $this->helper('catalog/image')->init($item, 'image')->resize(150, 150); ?>" />
+						<span>
+						<button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="tooltipster tooltipstered" onclick="setLocation('<?php echo $this->getAddToCartUrl($item) ?>')"><i class="fa fa-shopping-cart"></i></button>
+							<a href="<?php echo $item->getProductUrl() ?>" class="tooltipster tooltipstered"title="<?php echo $this->__('More Details') ?>"><i class="fa fa-eye"></i></a>
+						</span>
+					</div>
+					<h4><?php echo $item->getName(); ?></h4>
+					<div class="deal-price">
+						<!-- <div class="pull-left">$ 499 [30% OFF]</div> -->
+						
+					</div>
+					
+                </li>
+            <?php } ?>
+        </ul>
+		</div>
+		</div>
+	</div>
+	<?php }?>
+<?php if($this->getSourceConfig('show_left_carousel')) {?>
+</div>
+<script type="text/javascript">
+    jQuery('#countdown').countdown({
+        padZeroes: true
+    });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+      $("#item<?php echo $module; ?>countdown_<?php echo $module; ?>").lofCountDown({
+        formatStyle:2,
+        TargetDate:"<?php echo $first_targetDate; ?>",
+        DisplayFormat:"<ul><li>%%D%% <div><?php echo $this->__('Day');?></div></li><li> %%H%% <div><?php echo $this->__('Hours');?></div></li><li> %%M%% <div><?php echo $this->__('Mins');?></div></li><li> %%S%% <div><?php echo $this->__('Secs');?></div></li></ul>",
+        FinishMessage:"<?php echo $this->__('Expired');?>",
+        });
+    });
+ </script>
+
+<?php } ?>
+<script src="<?php echo Mage::getBaseUrl('js') ?>jquery.bxslider.js" ></script>

@@ -1,0 +1,34 @@
+<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="#">تسوق حسب الماركة <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu special">
+                <?php
+                $count=1; 
+                ?>
+                <?php foreach( $brands as $brand ):
+                $brand_title=$brand->getTitle();
+                $brand_str=explode('-', $brand_title);
+                $brand_ar=$brand_str[0];
+                if($brand_ar =="")
+                {
+                        $brand_ar=$brand->getTitle();
+                }
+                	if($count >6)
+                	{
+                		?>
+                		<li class="willhide"><a href="<?php echo $brand->getLink();?>" ><?php echo $brand_ar; ?></a></li>
+                		<?php
+                	}
+                	else
+                	{
+                		?>
+                		<li><a href="<?php echo $brand->getLink();?>" ><?php echo $brand_ar;?></a></li>
+                		<?php
+                	}
+                	$count++;
+                ?>
+                	
+					
+				<?php endforeach; ?>
+				<li class="btn-show" > <a href="#" >المزيد (+)</a></li>
+                </ul>
+                </li>

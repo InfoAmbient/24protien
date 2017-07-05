@@ -1,0 +1,354 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+ <?php 
+    // $categories = Mage::getModel('catalog/category')->getCollection()
+    //             ->addAttributeToSelect('id')
+    //             ->addAttributeToSelect('name')
+    //             ->addAttributeToSelect('url_key')
+    //             ->addAttributeToSelect('url')
+    //             ->addAttributeToSelect('is_active');
+ ?>
+<?php 
+$id=2;
+/* Load category by id*/
+$cat = Mage::getModel('catalog/category')->load($id);
+
+
+/*Returns comma separated ids*/
+$subcats = $cat->getChildren();
+
+//Print out categories string
+#print_r($subcats);
+$attribute = Mage::getModel('catalog/resource_eav_attribute')->load(66);
+$attributeOptions = $attribute->getSource()->getAllOptions();  ?>
+            
+
+<?php //echo $this->getChildHtml('topMenu') ?>
+<div class="top">
+       <div class="container">
+            <div class="logo">
+                 <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+            </div> 
+
+            
+
+            <!-- <form>
+                <input type="text" placeholder="Search here...">
+                <a href="" type="submit" class="fa fa-search"></a>
+            </form> -->
+
+
+            <div class="pull-left">
+
+            <div>
+
+            <div class="option-info">
+                    <!-- <a href="#" class="orange">English</a><br><a href="#">Arabic</a> -->
+                    <?php // echo $this->getChildHtml('store_language') ?>
+                    <i><img src="http://www.24protein.com/24_proten/skin/frontend/rwd_ar/default/img/globe.png" style="width: 31px;margin-top: 2px;margin-left: 5px;"></i>
+                    <a style="position: relative;top:1px;font-size:19px;color:#f7941d!important;" href="<?php echo $this->getCurrentUrl() ?>?___store=default&___from_store=arabic">English</a>
+                </div>
+
+
+            <a href="<?=$this->getUrl('')?>customer/account/login/" class="fa fa-user head-user" title="<ul>
+            <?php 
+                if(!Mage::getSingleton('customer/session')->isLoggedIn()){
+                    ?>
+                <li><a href='<?=$this->getUrl('')?>customer/account/login/'>دخول</a></li>
+                <li><a href='<?=$this->getUrl('')?>customer/account/create/'>تسجيل الدخول</a></li>
+            <?php //not logged in
+                }else{
+            ?>
+                <li><a href='<?=$this->getUrl('')?>customer/account/logout/'>خروج</a></li>
+            <?php // logged in
+                }
+            ?></ul>"></a>
+
+            <!-- <div class="options header-options one">
+               <div class="option-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="option-info">
+                <b>الحساب</b><br>
+                <?php 
+                    if(!Mage::getSingleton('customer/session')->isLoggedIn()){
+                        ?>
+                    <a href="<?=$this->getUrl('')?>customer/account/login/">دخول</a> - <a href="<?=$this->getUrl('')?>customer/account/create/">تسجيل</a>
+                <?php //not logged in
+                    }else{
+                ?>
+                <a href="<?=$this->getUrl('')?>customer/account/logout/">تسجيل الخروج</a>
+                <?php // logged in
+                    }
+                ?>
+                </div>
+            </div> -->
+                <!-- <div class="option-icon">
+                    <i><img src="http://www.24protein.com/24_proten/skin/frontend/rwd_ar/default/img/globe.png" style="width: 27px;margin-top: 10px;margin-left: 5px;"></i>
+                </div> -->
+               
+            <a href="<?=$this->getUrl('')?>customer/account/login/" style="color:#f59420!important;font-size:22px" class="fa fa-shopping-cart dropdown2 mt-c" title="<ul>
+            <li><?php
+              $count = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart
+              $total = $this->helper('checkout/cart')->getQuote()->getGrandTotal(); //get total price
+              if($count==0)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (0)</a>',$count);
+              }
+              if($count==1)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (1)</a>',$count);
+              }
+              if($count>1)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (%s)</a>',$count);
+              }
+              echo $this->__('', $this->helper('core')->formatPrice($total, false));
+            ?></li>
+            <li><a href='<?=$this->getUrl('')?>wishlist'>قائمتي المفضلة</a></li>
+            <li><a href='<?=$this->getUrl('')?>checkout'>عملية الدفع</a></li>
+            </ul>"></a>
+            <div class="header-tel" dir="ltr"><i class="fa fa-phone" style="float:left;margin-right:15px;"></i> +964 - (0)7727272925</div>
+            </div>
+             <div class="header-options four"> 
+            <?php echo $this->getChildHtml('topSearch') ?>
+            </div>
+        </div>
+    </div>  
+
+    </div>
+
+    <nav class="desktop-menu bg-blue">
+        <ul>
+         <!--  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="#">SHOP BY BRAND <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                <?php  foreach ($attributeOptions as $option) {
+                   if ($option['value']) echo'<li><a href="#">'.$option['label']."</a></li>";
+                    } ?>
+                     <li><a href="#">FOOD SPORT</a></li> 
+                  <li><a href="#">CLOTHING</a></li> 
+                   <li><a href="#">ACCESSORIES</a></li> 
+                   <li><a href="#">EQUIPMENT</a></li> 
+                </ul>
+            </li>  -->
+            <li><a href="<?php echo $this->getUrl('') ?>">الرئيسية</a></li>
+             <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('by_brand_ar')->toHtml();?>
+<!-- 
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="#">تسوق حسب الماركة <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                <?php
+                //$attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection');
+                    //$attributeSetCollection->setEntityTypeFilter('4'); // 4 is Catalog Product Entity Type ID
+                    //foreach ($attributeSetCollection as $id=>$attributeSet) {
+                     //   $name = $attributeSet->getAttributeSetName(); 
+                     //   $attributeSetId = $attributeSet->getId();
+                     //   if ($name!="Default") {
+                    //    echo"<li><a href='".$this->getUrl('catalogsearch/result')."?q=".$name."'\>".$name."<///a></li>";
+                  //      }
+                  //  }
+                     ?>
+                </ul>
+            </li> -->
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('by_brand_ar')->toHtml();?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="#">ماذا تحتاج <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                <?php
+                $count=1; 
+                ?>
+                    <?php foreach(explode(',',$subcats) as $subCatid)
+                    {
+                      $_category = Mage::getModel('catalog/category')->load($subCatid);
+                      if($_category->getIsActive())
+                      {
+                        $caturl     = $_category->getURL();
+                        $catname     = $_category->getName();
+                        if($count >6)
+                    {
+                        continue;
+                        //echo '<li class="willhide3">
+                        //<a href="'.$caturl.'" title="View the products for this category">'.$catname.'</a>';
+                    }
+                    else
+                    {
+                        echo '<li>
+                        <a href="'.$caturl.'" title="View the products for this category">'.$catname.'</a>';
+                    }
+                    $count++;
+                        $cat_sub = Mage::getModel('catalog/category')->load($_category->getId());
+                        /*Returns comma separated ids*/
+                        $children = $cat_sub->getChildren();
+                            if ($children) {
+                                echo'<ul>';
+                                foreach (explode(',',$children) as $child) {
+                                    $category_sub = Mage::getModel('catalog/category')->load($child);
+                        $caturl_sub     = $category_sub->getURL();
+                                    //var_dump($caturl_sub);
+                                    echo '<li><a href=\''.$caturl_sub.'\'>'.$category_sub->getName().'</a></li>';
+                                }   
+                                echo'</ul>';
+                            }
+                        echo'</li>';
+                      }
+                    } ?>
+                    <!-- <li class="btn-show3" > <a href="#" >Show More (+)</a></li> -->
+                </ul>
+            </li>
+            <li><a href="<?php echo $this->getUrl('spcial_offer_ar') ?>">عروض خاصة</a></li>
+            <li><a href="<?php echo $this->getUrl('') ?>clothes.html">ملابس</a></li>
+            <li><a href="<?php echo $this->getUrl('') ?>accessories.html">أكسسوارات</a></li>
+            <!-- <li><a href="<?php echo $this->getUrl('clearance') ?>">ترشيحاتنا</a></li> -->
+            
+            <!-- <li><a href="<?php echo $this->getUrl('news') ?>">المدونة</a></li> -->
+        </ul>
+    </nav>
+
+     <div class="logo-mobile">
+             <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+    </div> 
+
+    <div class="icon-mobile">
+        <?php 
+            if(!Mage::getSingleton('customer/session')->isLoggedIn()){
+                ?>
+                <a href="<?=$this->getUrl('')?>customer/account/create/"><i class="fa fa-key sign-up-mobile"></i></a>
+            <a href="<?=$this->getUrl('')?>customer/account/login/"><i class="fa fa-user sign-in-mobile"></i></a>  
+        <?php //not logged in
+            }else{
+        ?>
+        <a href="<?=$this->getUrl('')?>customer/account/logout/"><i class="fa fa-sign-out sign-out-mobile"></i></a>
+        <?php // logged in
+            }
+        ?>
+    </div>
+
+    <div class="account-mobile">    
+            <a href="<?=$this->getUrl('')?>customer/account/login/" class="fa fa-shopping-cart dropdown2" title="<ul>
+            <li><?php
+              $count = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart
+              $total = $this->helper('checkout/cart')->getQuote()->getGrandTotal(); //get total price
+              if($count==0)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (0)</a>',$count);
+              }
+              if($count==1)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (1)</a>',$count);
+              }
+              if($count>1)
+              {
+                echo $this->__('<a href=\''.$this->getUrl('').'/checkout/cart\'><i class=\'fa fa-shopping-cart\'></i> السلة (%s)</a>',$count);
+              }
+              echo $this->__('', $this->helper('core')->formatPrice($total, false));
+            ?></li>
+            <li><a href='<?=$this->getUrl('')?>wishlist'>My Wishlist</a></li>
+            <li><a href='<?=$this->getUrl('')?>checkout'>Checkout</a></li>
+            </ul>"></a>
+            </div>
+
+            <div class="lang-mobile">
+                 <a href="<?php echo $this->getCurrentUrl() ?> ?___store=arabic&___from_store=default?">EN</a>
+            </div>
+
+    <div class="mobile-wrap">
+
+    <div class="mobile-menu">
+        <nav>
+            <ul>
+            <!-- <li>
+                <a href="#">SHOP BY BRAND</a>
+                <ul>
+                    <li><a href="#">FOOD SPORT</a></li>
+                    <li><a href="#">CLOTHING</a></li>
+                    <li><a href="#">ACCESSORIES</a></li>
+                    <li><a href="#">EQUIPMENT</a></li>
+                </ul>
+            </li> -->
+            <li><a href="<?php echo $this->getUrl('') ?>">الرئيسية</a></li>
+            <li>
+                <a href="#">ماذا تحتاج</a>
+                <ul>
+                    <?php foreach(explode(',',$subcats) as $subCatid)
+                    {
+                      $_category = Mage::getModel('catalog/category')->load($subCatid);
+                      if($_category->getIsActive())
+                      {
+                        $caturl     = $_category->getURL();
+                        $catname     = $_category->getName();
+                        if($_category->getImageUrl())
+                        {
+                          $catimg     = $_category->getImageUrl();
+                        }
+                        echo '<li><a href="'.$caturl.'" title="View the products for this category">'.$catname.'</a></li>';
+                      }
+                    } ?>
+                </ul>
+            </li>
+            <li>
+                <a href="#">تسوق حسب الماركة <i class="fa fa-caret-down"></i></a>
+                <ul>
+                <?php
+                $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection');
+                    $attributeSetCollection->setEntityTypeFilter('4'); // 4 is Catalog Product Entity Type ID
+                    foreach ($attributeSetCollection as $id=>$attributeSet) {
+                        $name = $attributeSet->getAttributeSetName(); 
+                        $attributeSetId = $attributeSet->getId();
+                        if ($name!="Default") {
+                        echo"<li><a href='".$this->getUrl('catalogsearch/result')."?q=".$name."'\>".$name."</a></li>";
+                        }
+                    }
+                     ?>
+                </ul>
+            </li>
+            <li><a href="<?php echo $this->getUrl('spcial_offer_ar') ?>">عروض خاصة</a></li>
+            <li><a href="<?php echo $this->getUrl('') ?>clothes.html">ملابس</a></li>
+            <li><a href="<?php echo $this->getUrl('') ?>accessories.html">أكسسوارات</a></li>
+            <!-- <li><a href="<?php echo $this->getUrl('new_product') ?>">منتجات جديدة</a></li>
+            <li><a href="<?php echo $this->getUrl('clearance') ?>">ترشيحاتنا</a></li>
+            
+            <li><a href="<?php echo $this->getUrl('news') ?>">المدونة</a></li> -->
+        </ul>
+        </nav>
+    </div>
+
+    </div>
+
+    <div class="search-mobile">
+        <?php echo $this->getChildHtml('topSearch') ?>
+    </div>
+
+    <div class="header-tel mobile-tel"><i class="fa fa-phone"></i> <span dir="ltr">+964 - (0)7727272925</span></div>
+    
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+

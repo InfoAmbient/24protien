@@ -1,0 +1,138 @@
+<?php 
+$collections = Mage::getModel('ves_brand/group')->getCollection()
+    ->addFieldToFilter("status", array("eq" => 1))
+    ->setPageSize($limit)
+    ->setOrder("group_id","DESC");
+?>
+<div class="brands-subnmenu-main">
+    <div class="row">
+        <div class="col-sm-8">
+       <?php $totalgroups = count($collections); if($totalgroups <= 1){  ?>     
+            <div class="brands-single-tab">
+<ul class="single-tab-inner">
+    <?php $i=1; foreach ($collections as $collection){
+        ?>
+    <li><a <?php if($i == 1){ ?> id="tab-first" <?php } ?> href="javascript:void(0);"><?php echo $this->__($collection->getName()); ?></a></li>
+    
+    <?php $i++; } ?> 
+</ul>
+ <?php
+foreach ($collections as $catid){
+    $gid = $catid->getGroupId();
+    $collectionbrands = Mage::getModel('ves_brand/brand')->getCollection()->addFieldToFilter("group_brand_id",$gid)->addFieldToFilter("is_active",1);
+    //$collectionbrands->getSelect()->limit(8);
+  ?>
+ <div class=" single-tab-inner-content" id="tab-<?php echo $gid; ?>">
+        <ul>
+      <?php $i = 1; foreach ($collectionbrands as $brand){
+          ?>
+            <li>
+                <div class="brand-item">
+				<a class="brand-logo" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<img src="<?php echo $brand->getIconUrl();?>" alt="<?php echo $brand->getTitle();?>" />
+                                         <div class="brand-title"><?php echo $this->__($brand->getTitle()); ?></div>
+				</a>
+				</div>
+            </li> 
+            
+            
+      <?php } ?> 
+        </ul>
+</div>
+  <?php } ?>
+</div> 
+            
+       <?php }else{ ?>     
+<div id="horizontalTabbrands-submenu">
+<ul>
+    <?php $i=1; foreach ($collections as $collection){
+        ?>
+    <li><a <?php if($i == 1){ ?> id="tab-first" <?php } ?> href="#tab-<?php echo $collection->getGroupId(); ?>"><?php echo $this->__($collection->getName()); ?></a></li>
+    
+    <?php $i++; } ?> 
+</ul>
+ <?php
+foreach ($collections as $catid){
+    $gid = $catid->getGroupId();
+    $collectionbrands = Mage::getModel('ves_brand/brand')->getCollection()->addFieldToFilter("group_brand_id",$gid)->addFieldToFilter("is_active",1);
+    //$collectionbrands->getSelect()->limit(8);
+  ?>
+<div id="tab-<?php echo $gid; ?>">
+        <ul>
+      <?php $i = 1; foreach ($collectionbrands as $brand){
+          ?>
+            <li>
+                <div class="brand-item">
+				<a class="brand-logo" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<img src="<?php echo $brand->getIconUrl();?>" alt="<?php echo $brand->getTitle();?>" />
+                                         <div class="brand-title"><?php echo $this->__($brand->getTitle()); ?></div>
+				</a>
+				</div>
+            </li> 
+            
+            
+      <?php } ?> 
+        </ul>
+</div>
+  <?php } ?> 
+   <script type="text/javascript">
+        jQuery(document).ready(function () {
+             //jQuery('#tab-first').trigger('click');
+            jQuery('#brands-mani-menu').one('mouseover', function() { jQuery('#tab-first').trigger('click'); });
+            var $tabs = jQuery('#horizontalTabbrands-submenu');
+            $tabs.responsiveTabs({
+                rotate: false,
+                startCollapsed: 'accordion',
+                collapsible: 'accordion',
+                setHash: true,
+                click: function(e, tab) {
+                    jQuery('.info').html('Tab <strong>' + tab.id + '</strong> clicked!');
+                },
+                activate: function(e, tab) {
+                  jQuery('.info').html('Tab <strong>' + tab.id + '</strong> activated!');
+                },
+                activateState: function(e, state) {
+                    //console.log(state);
+                    jQuery('.info').html('Switched from <strong>' + state.oldState + '</strong> state to <strong>' + state.newState + '</strong> state!');
+                }
+            });
+
+           jQuery('#start-rotation').on('click', function() {
+                $tabs.responsiveTabs('startRotation', 1000);
+            });
+            jQuery('#stop-rotation').on('click', function() {
+                $tabs.responsiveTabs('stopRotation');
+            });
+            jQuery('#start-rotation').on('click', function() {
+                $tabs.responsiveTabs('active');
+            });
+           jQuery('#enable-tab').on('click', function() {
+                $tabs.responsiveTabs('enable', 3);
+            });
+           jQuery('#disable-tab').on('click', function() {
+                $tabs.responsiveTabs('disable', 3);
+            });
+            jQuery('.select-tab').on('click', function() {
+                $tabs.responsiveTabs('activate', jQuery(this).val());
+            });
+
+        });
+    </script> 
+</div>
+            <?php } ?>
+        </div>
+         <div class="col-sm-4">
+        <div class="brands-right-section">
+        <div class="smal-icon"><img src="<?php echo $this->getSkinUrl() ?>images/topIcon.jpg"/></div>
+        <div class="totalbrands">
+            <?php $collectionbrands = Mage::getModel('ves_brand/brand')->getCollection()->addFieldToFilter("is_active",1); ?>
+            <?php echo count($collectionbrands) ?>+
+        </div>
+        <div class="topbrands"><span class="empty-span"></span><span class="topbrands-title"><?php echo $this->__($this->__('Top Brands')) ?></span></div>
+        <div class="brands-banner">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('menubrands-banner')->toHtml(); ?>
+        </div>
+    </div>
+    </div>
+</div>
+</div>

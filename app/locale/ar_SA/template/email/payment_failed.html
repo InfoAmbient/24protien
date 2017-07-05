@@ -1,0 +1,68 @@
+<!--@subject Payment Transaction Failed Reminder @-->
+<!--@vars
+{"var reason":"Transaction Failed Reason",
+"var checkoutType":"Checkout Type",
+"var customerEmail":"Customer Email",
+"var customer":"Customer Name",
+"var items":"Shopping Cart Items",
+"var total":"Total",
+"var billingAddress.format('html')":"Billing Address",
+"var shippingAddress.format('html')":"Shipping Address",
+"var shippingMethod":"Shipping Method",
+"var paymentMethod":"Payment Method",
+"var dateAndTime":"Date and Time of Transaction"}
+@-->
+
+<table>
+    <thead>
+    <tr>
+        <th>عملية الدفع لم تكتمل!</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <p>
+                <b>السبب</b><br />
+                {{var reason}}
+            </p>
+            <p>
+                <b>نوع الدفع</b><br />
+                {{var checkoutType}}
+            </p>
+            <p>
+                <b>المستخدم:</b><br />
+                <a href="mailto:{{var customerEmail}}">{{var customer}}</a> &lt;{{var customerEmail}}&gt;
+            </p>
+            <p>
+                <b>المنتجات</b><br />
+                {{var items}}
+            </p>
+            <p>
+                <b>المجموع:</b><br />
+                {{var total}}
+            </p>
+            <p>
+                <b>عنوان الدفع:</b><br />
+                {{var billingAddress.format('html')}}
+            </p>
+            <p>
+                <b>عنوان الشحن:</b><br />
+                {{var shippingAddress.format('html')}}
+            </p>
+            <p>
+                <b>طريقة الشحن:</b><br />
+                {{var shippingMethod}}
+            </p>
+            <p>
+                <b>طريقة الدفع:</b><br />
+                {{var paymentMethod}}
+            </p>
+            <p>
+                <b>التاريخ والوقت:</b><br />
+                {{var dateAndTime}}
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>

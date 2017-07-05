@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="head">
+			<action method="addCss" ifconfig="tourconfig/tour_group/ft_enabled">
+				<stylesheet>tour/trip/src/trip.css</stylesheet>
+			</action>
+			<action method="addItem" ifconfig="tourconfig/tour_group/ft_load_jq">
+				<type>skin_js</type>
+				<name>tour/js/jquery-1.8.3.min.js</name>
+			</action>
+			<block type="core/text" name="no.conflict.jquery">
+				<action method="setText">
+					<text>
+						<![CDATA[<script type="text/javascript">jQuery.noConflict();</script>]]>
+					</text>
+				</action>
+			</block>
+			<action method="addItem" ifconfig="tourconfig/tour_group/ft_enabled">
+				<type>skin_js</type>
+				<name>tour/trip/src/trip.min.js</name>
+			</action>
+		</reference>
+		<reference name="footer">
+            <block type="tour/tour" name="tour.footer" after="-" template="tour/tour_footer.phtml" />
+		</reference>
+    </default>
+    <tour_index_index>
+        <reference name="content">
+            <block type="tour/tour" name="tour" template="tour/tour.phtml" />
+        </reference>
+    </tour_index_index>
+</layout> 

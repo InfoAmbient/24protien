@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+        </reference>
+        <update handle="editor"/>
+        <reference name="js">
+            <block type="core/template" template="ves_productcarousel/wysiwyg/js.phtml"/>
+        </reference>
+    </default>
+</layout>

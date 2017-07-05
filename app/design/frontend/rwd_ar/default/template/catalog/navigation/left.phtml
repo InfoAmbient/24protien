@@ -1,0 +1,95 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+
+<?php 
+$id=2;
+/* Load category by id*/
+$cat = Mage::getModel('catalog/category')->load($id);
+
+
+/*Returns comma separated ids*/
+$subcats = $cat->getChildren();
+
+//Print out categories string
+#print_r($subcats);
+$attribute = Mage::getModel('catalog/resource_eav_attribute')->load(66);
+$attributeOptions = $attribute->getSource()->getAllOptions();  ?>
+<div class="sidebar">
+                <h2>القائمة الرئيسية</h2>
+                <ul class="sidebar-menu">
+                    <li><a href="#">منتجات</a></li>
+                     <?php foreach(explode(',',$subcats) as $subCatid)
+                    {
+                      $_category = Mage::getModel('catalog/category')->load($subCatid);
+                      if($_category->getIsActive())
+                      {
+                        $caturl     = $_category->getURL();
+                        $catname     = $_category->getName();
+                        echo '<li>
+                        <a href="'.$caturl.'" title="View the products for this category">'.$catname.'</a>';
+                        $cat_sub = Mage::getModel('catalog/category')->load($_category->getId());
+                        /*Returns comma separated ids*/
+                        $children = $cat_sub->getChildren();
+                            if ($children) {
+                                echo'<ul>';
+                                foreach (explode(',',$children) as $child) {
+                                    $category_sub = Mage::getModel('catalog/category')->load($child);
+                        $caturl_sub     = $category_sub->getURL();
+                                    //var_dump($caturl_sub);
+                                    echo '<li><a href=\''.$caturl_sub.'\'>'.$category_sub->getName().'</a></li>';
+                                }   
+                                echo'</ul>';
+                            }
+                        echo'</li>';
+                      }
+                    } ?>
+                    <li><a href="<?=$this->getUrl('')?>interview_ar">حوار مع بطل</a></li>
+                    <li><a href="<?=$this->getUrl('')?>championships_ar">بطولات</a></li>
+                </ul>
+                <h2><a href="<?=$this->getUrl('')?>interview_ar">حوار مع بطل</a></h2>
+                <div class="interview">
+                    <a href="<?=$this->getUrl('')?>interview_ar"><img src="http://216.194.172.49/~n4prot5/24_proten/skin/frontend/rwd/default/img/champion.jpg" alt=""></a>
+                    <h4><a href="<?=$this->getUrl('')?>interview_ar">اسم البطل</a></h4>
+                    <p>لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... <a href="<?=$this->getUrl('')?>interview_ar">المزيد..</a></p>
+                </div>
+                <h2><a href="#">قناتنا على اليوتيوب</a></h2>
+                <div class="interview">
+                    <a class="fancybox fancybox.iframe" href="https://www.youtube.com/embed/zM7PgGkETys">
+                        <div class="channel-wrap">
+                            <img src="http://216.194.172.49/~n4prot5/24_proten/skin/frontend/rwd/default/img/channel.png" alt="">
+                           <i class="fa fa-youtube-play"></i></a>
+                        </div>
+                    
+                    <p>لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... <a href="#">المزيد..</a></p>
+                </div>
+            </div>

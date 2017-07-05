@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<widgets>
+    <tour_tour_view type="zombiestudio_tour/tour_widget_view" translate="name description" module="zombiestudio_tour">
+        <name>Tour view</name>
+        <description>Tour view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <tour_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Tour</label>
+                <type>label</type>
+                <helper_block>
+                    <type>zombiestudio_tour/adminhtml_tour_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Tour</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </tour_id>
+        </parameters>
+    </tour_tour_view>
+    <tour_tour_link type="zombiestudio_tour/tour_widget_link" translate="name description" module="zombiestudio_tour">
+        <name>Tour link</name>
+        <description>Tour link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <tour_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Tour</label>
+                <type>label</type>
+                <helper_block>
+                    <type>zombiestudio_tour/adminhtml_tour_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Tour</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </tour_id>
+        </parameters>
+    </tour_tour_link>
+</widgets>

@@ -1,0 +1,286 @@
+<?php
+die("Test");
+		$locale = substr(Mage::app()->getLocale()->getLocaleCode(),0,2);
+		echo $locale;
+?>
+<?php $enabled = $this->getConfig('ft_enabled'); ?>
+
+<?php $repeat = $this->getConfig('ft_repeat'); ?>
+
+<?php $expire = trim($this->getConfig('ft_expire')); ?>
+
+<?php $text = $this->getConfig('ft_text'); ?>
+
+<?php $text = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $text); ?>
+
+
+
+<?php
+
+$today = date('m/d/Y');
+
+if (!$expire || $expire == '') {
+
+	$expire = $today;
+
+}
+
+if (strtotime($today) > strtotime($expire)) {
+
+	$enabled = false;
+
+}
+
+?>
+
+
+
+<?php if ($enabled): ?>
+
+
+
+	<?php $tours = $this->getTours() ?>
+
+	<?php $tourData = ''; ?>
+
+	<?php foreach ($tours as $tour): ?>
+
+		<?php 
+
+			$expose = ($tour['expose']==1)?true:false;
+
+			$tourData .= '{';
+
+			$tourData .= "sel:jQuery(".json_encode($tour['selector'])."),";
+
+			$tourData .= "position:'".$tour['position']."',";
+
+			$tourData .= "content:".json_encode($tour['content']).",";
+
+			$tourData .= "delay:".json_encode($tour['delay']).",";
+
+			$tourData .= "expose:'".$expose."'";
+
+			$tourData .= '},';
+
+		?>
+
+	<?php endforeach; ?>
+
+	<?php $tourData = rtrim($tourData, ''); ?>
+
+<style type="text/css">
+
+.trip-block {max-width:500px;color:#ffffff;}
+
+.trip-btn {background: none repeat scroll 0 0 #333333;border-radius: 3px 3px 3px 3px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);color: #DDDDDD;padding: 8px;text-align: center;right: 15px; top: 15px; display: none; z-index: 100000; position:fixed; height:auto; max-width: 150px; min-width:100px; wisth:100px; font-weight:bold; font-size: 13px; cursor: pointer;}
+
+.trip-close-btn {float: right;font-size:9px;margin-top:-8px;}
+
+</style>
+
+<div id="trip_init_btn" class="trip-btn" style="">
+
+	<div class="trip-close-btn"><a href="#" id="trip-close">Close</a></div>
+
+	<div class="trip-content"><?php echo $text ?></div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+
+
+	var tripStarted = false;
+
+	var $tripBtn = jQuery("#trip_init_btn");
+
+	var ft_repeat = parseInt(<?php echo $repeat ?>, 10);
+
+	var ftCk = "arv_f_tour";
+
+
+
+	showTripBtn();
+
+
+
+	var trip = new Trip([<?php echo $tourData ?>], {
+
+		onTripStart : function() {
+
+			tripStarter();
+
+		},
+
+		onTripEnd : function() {
+
+			endFeatureTour();
+
+		},
+
+		onTripStop : function() {
+
+			$tripBtn.hide();
+
+		},
+
+		backToTopWhenEnded : true,
+
+		delay : 2000
+
+	});
+
+
+
+	function showTripBtn() {
+
+		var c_val = readCookie(ftCk);
+
+		var cbtn_val = readCookie("arv_tour_btn");
+
+		if ((!c_val || c_val == 'undefined' || c_val < ft_repeat) && cbtn_val != 0) {
+
+			$tripBtn.show();
+
+		}
+
+	}
+
+
+
+	jQuery(document).on("click", "#trip-close", function(e) {
+
+		e.preventDefault();
+
+		e.stopPropagation();
+
+		$tripBtn.hide();
+
+		createCookie("arv_tour_btn", 0);
+
+	});
+
+
+
+	jQuery(document).on("click", "#trip_init_btn", function(e) {
+
+		if (tripStarted) {
+
+			trip.stop();
+
+		} else {
+
+			var c_val = readCookie(ftCk);
+
+			if (!c_val || c_val == 'undefined' || c_val < ft_repeat) {
+
+				trip.start();
+
+			}
+
+		}
+
+	});
+
+
+
+	function tripStarter() {
+
+		tripStarted = true;
+
+		$tripBtn.find(".trip-content").text("Stop Tour");
+
+	}
+
+	
+
+	function endFeatureTour() {
+
+		var c_val = readCookie(ftCk);
+
+		if (typeof(parseInt(c_val, 10)) == 'number') {
+
+			c_val = parseInt(c_val, 10) + 1;
+
+		} else if (!c_val) {
+
+			c_val = 1;
+
+		} else {
+
+			c_val = 1;
+
+		}
+
+		if (isNaN(c_val)) {
+
+			c_val = 1;
+
+		}
+
+		createCookie(ftCk, c_val);
+
+		$tripBtn.hide();
+
+	}
+
+
+
+	function createCookie(name, value, days) {
+
+		if (days) {
+
+			var date = new Date();
+
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+
+			var expires = "; expires=" + date.toGMTString();
+
+		} else var expires = "";
+
+		document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+
+	}
+
+
+
+	function readCookie(name) {
+
+		var nameEQ = escape(name) + "=";
+
+		var ca = document.cookie.split(';');
+
+		for (var i = 0; i < ca.length; i++) {
+
+			var c = ca[i];
+
+			while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+
+			if (c.indexOf(nameEQ) == 0) return unescape(c.substring(nameEQ.length, c.length));
+
+		}
+
+		return null;
+
+	}
+
+
+
+	function eraseCookie(name) {
+
+		createCookie(name, "", -1);
+
+	}
+
+});
+
+</script>
+
+
+
+<?php endif; //if enabled ?>

@@ -1,0 +1,36 @@
+<?php if($crumbs && is_array($crumbs)):
+$currentcontroller = Mage::app()->getRequest()->getControllerName();
+if(Mage::registry('current_product')){
+$categoryIds = Mage::registry('current_product')->getCategoryIds();
+if(count($categoryIds) ){
+                $firstCategoryId = $categoryIds[0];
+                $_category = Mage::getModel('catalog/category')->load($firstCategoryId);
+               $catname = $_category->getName();
+               $_category->getUrl();
+            }
+}
+ ?>
+<div class="col-sm-12 a-left">
+    <ul>
+        <?php foreach($crumbs as $_crumbInfo): ?>
+        <?php 
+                if($_crumbInfo['last']){
+                ?>
+              <?php if($currentcontroller == 'product'){  ?>  
+            <li class="last">
+                <strong><a href="<?php echo $_category->getUrl(); ?>"><?php echo $catname; ?></a></strong>
+            </li>
+            <?php }elseif(Mage::registry('current_category')){ ?>
+              <li class="last">
+                <strong><a href="<?php echo Mage::registry('current_category')->getUrl(); ?>"><?php echo $this->escapeHtml($_crumbInfo['label']) ?></a></strong>
+            </li>
+            <?php }else{ ?>
+            <li class="last">
+                <strong><?php echo $this->escapeHtml($_crumbInfo['label']) ?></strong>
+            </li>
+            <?php } ?>
+             <?php } ?>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

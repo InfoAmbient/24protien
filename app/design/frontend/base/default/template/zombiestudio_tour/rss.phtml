@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * tour rss feeds block
+ * @category    ZombieStudio
+ * @package     ZombieStudio_Tour
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_feeds = $this->getFeeds();?>
+<?php if ($_feeds): ?>
+<table class="data-table rss-table" id="rss-table-tour" style="margin-top:20px">
+    <col />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th colspan="2"><?php echo Mage::helper('zombiestudio_tour')->__('Tour Feeds') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($_feeds as $_feed): ?>
+        <tr>
+            <td><?php echo $_feed->getLabel() ?></td>
+            <td><a href="<?php echo $_feed->getUrl() ?>" class="link-rss"><?php echo Mage::helper('zombiestudio_tour')->__('Get Feed'); ?></a></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

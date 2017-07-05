@@ -1,0 +1,160 @@
+<?php 
+    $_helper = $this->helper('catalog/output'); 
+    $_product = $this->getProduct(); 
+    $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product);
+?>
+<style>
+    .col-right {
+        display: none !important;
+    }
+</style>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="">
+    <div class="row">
+<div class="col-md-8 no-pd">
+<div id="left-body">
+        <div class="col-md-5">
+            <div class="product-img-box">
+                <!--<img class="img-responsive" src="product.png" alt="">-->
+                <?php echo $this->getChildHtml('media') ?>
+            </div>
+            <table class="table det table-striped">
+				<tbody>
+                    <!-- <tr>
+                        <td colspan="2">
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product); ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" style="color: #3399cc;"><?php echo $this->__('Add to Wishlist') ?></a>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->helper('catalog/product_compare')->getAddUrl($_product); ?>" style="color: #3399cc;"><?php echo $this->__('Add to Compare') ?></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                        	<div class="btn-group">
+							  <?php if ($this->canEmailToFriend()): ?>
+                                    <a style="float:left;margin-right:-1px" href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="link-email-friend list-group-item" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email to a Friend')) ?>"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></a>
+                                <?php endif; ?>
+
+                                <?php $_helper = $this->helper('catalog/output'); ?>
+                                <?php $_productName = urlencode(trim($_helper->productAttribute($_product, $_product->getName(), 'name')))?>
+                                <?php $_productImageUrl = urlencode(trim($this->helper('catalog/image')->init($_product, 'image')))?>
+                                <?php $_productUrl = urlencode(trim($_product->getProductUrl()))?>
+                                
+                                    <?php $_u = 'p[url]=' . $_productUrl . '&p[images][0]=' . $_productImageUrl . '&p[title]=' . $_productName . '&p[summary]=' . urlencode(trim($_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description'))); ?>
+                                    <a style="float:left;margin-right:-1px" href="<?php echo 'http://www.facebook.com/sharer.php?s=100&' . $_u; ?>" target="_blank" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share on Facebook')) ?>" class="link-facebook list-group-item"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+                                    </a>
+                                
+                                
+                                    <a style="float:left;margin-right:-1px" href="<?php echo 'http://twitter.com/home?status=' . $_productName . '+' . $_productUrl; ?>" target="_blank" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share on Twitter')) ?>" class="link-twitter list-group-item"><i class="fa fa-home fa-twitter" aria-hidden="true"></i></a>
+							</div>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-7 product-in-details">
+            <h3 class><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h3>
+            <h5 class="badge badge-status"><?php echo $this->getChildHtml('product_type_availability'); ?></h5>
+            <h5 class="badge badge-status badge-status2">PRICE: <b><?php echo $this->getPriceHtml($_product); ?></b></h5>
+            <div class="clearfix"></div>
+            <!--<h5 class="badge badge-status badge-status3"><strike>PRICE: <b>$50</b></strike></h5>-->
+            <p class="text"><?php echo $this->getReviewsSummaryHtml($_product, 'default', false) ?></p>
+            <p class="text"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p>
+        </div>
+    </div>
+    </div>
+        
+    <div class="col-md-4 no-pd">
+		<div id="right-body" style="padding:0">
+             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true); ?>
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+
+<div class="product-view row">
+    
+    <div class="product-collateral toggle-content tabs">
+        <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')): ?>
+            <dl id="collateral-tabs" class="collateral-tabs">
+                <?php foreach ($detailedInfoGroup as $alias => $html): ?>
+                    <dt class="tab"><span><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
+                    <dd class="tab-container">
+                        <div class="tab-content"><?php echo $html ?></div>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+    </div>
+
+    <?php echo $this->getChildHtml('upsell_products') ?>
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+    
+    
+</div>
+
+    <script type="text/javascript">
+            //<![CDATA[
+                var productAddToCartForm = new VarienForm('product_addtocart_form');
+                productAddToCartForm.submit = function(button, url) {
+					// console.log(button);
+                    if (this.validator.validate()) {
+                        var form = this.form;
+                        var oldUrl = form.action;
+                        
+                        if (url) {
+                           form.action = url;
+                        }
+                        var e = null;
+                        try {
+                            this.form.submit();
+                        } catch (e) {
+                        }
+                        this.form.action = oldUrl;
+                        if (e) {
+                            throw e;
+                        }
+
+                        if (button && button != 'undefined') {
+                            button.disabled = true;
+                        }
+                    }
+                }.bind(productAddToCartForm);
+
+                productAddToCartForm.submitLight = function(button, url){
+                    if(this.validator) {
+                        var nv = Validation.methods;
+                        delete Validation.methods['required-entry'];
+                        delete Validation.methods['validate-one-required'];
+                        delete Validation.methods['validate-one-required-by-name'];
+                        // Remove custom datetime validators
+                        for (var methodName in Validation.methods) {
+                            if (methodName.match(/^validate-datetime-.*/i)) {
+                                delete Validation.methods[methodName];
+                            }
+                        }
+
+                        if (this.validator.validate()) {
+                            if (url) {
+                                this.form.action = url;
+                            }
+                            this.form.submit();
+                        }
+                        Object.extend(Validation.methods, nv);
+                    }
+                }.bind(productAddToCartForm);
+            //]]>
+    </script>

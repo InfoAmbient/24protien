@@ -1,0 +1,36 @@
+<li class="bluebg"><a href="#">تسوق حسب الماركة </a></li>
+                <?php
+                $count=1; 
+                ?>
+                <?php foreach( $brands as $brand ):
+                $brand_title=$brand->getTitle();
+                $brand_str=explode('-', $brand_title);
+                $brand_ar=$brand_str[0];
+                if($brand_ar =="")
+                {
+                        $brand_ar=$brand->getTitle();
+                }
+                	if($count >6)
+                	{
+                		?>
+                		<li class="willhide2" style="position:relative;">
+                        <i class="fa fa-angle-double-left st-icon" style="position: absolute;left: 20px;top: 11px;"></i>
+                                <a href="<?php echo $brand->getLink();?>" ><?php echo $brand_ar;?></a></li>
+                		<?php
+                	}
+                	else
+                	{
+                		?>
+                		<li style="position:relative;">
+                        <i class="fa fa-angle-double-left st-icon" style="position: absolute;left: 20px;top: 11px;"></i>
+                        <a href="<?php echo $brand->getLink();?>" ><?php echo $brand_ar;?></a></li></a></li>
+                		<?php
+                	}
+                	$count++;
+                ?>
+                	
+					
+				<?php endforeach; ?>
+				
+                </li>
+                <li class="btn-show2 bluebg" > <a href="#" >المزيد (+)</a></li>

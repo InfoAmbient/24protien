@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+ 
+<layout>
+    <adminhtml_tour_tour_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>zombiestudio_tour/tour</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="zombiestudio_tour/adminhtml_tour" name="tour" />
+
+        </reference>
+    </adminhtml_tour_tour_index>
+    <adminhtml_tour_tour_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="zombiestudio_tour/adminhtml_tour_grid" name="tour_grid"/>
+        </block>
+    </adminhtml_tour_tour_grid>
+    <!-- Tour add/edit action -->
+    <adminhtml_tour_tour_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>zombiestudio_tour/tour</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="zombiestudio_tour/adminhtml_tour_edit" name="tour_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="zombiestudio_tour/adminhtml_tour_edit_tabs" name="tour_tabs"></block>
+        </reference>
+    </adminhtml_tour_tour_edit>
+
+</layout>

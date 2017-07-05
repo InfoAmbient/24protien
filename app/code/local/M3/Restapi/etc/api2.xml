@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resource_groups>
+            <restapi translate="title" module="M3_Restapi">
+                <title>Custom api list</title>
+                <sort_order>10</sort_order>
+            </restapi>
+        </resource_groups>
+        <resources>
+            <restapi translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_restapi</model>
+                <title>Customer Login API</title>
+                <sort_order>11</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <id>Id</id>
+                    <error>Error</error>
+                </attributes>
+                <routes>
+                    <route>
+                        <route>/customerlogin/:email/:password</route>
+                        <action_type>entity</action_type>
+                    </route>
+                </routes>
+                <versions>1</versions>
+            </restapi>
+            <wishlist translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_wishlist</model>
+                <working_model>wishlist/wishlist</working_model>
+                <title>Customer wishlist API</title>
+                <sort_order>12</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <userid>User Id</userid>
+                    <prdid>Product Id</prdid>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>wishlist</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                    <route_collection_with_userid>
+                        <route>/wishlist/:userid/</route>
+                        <action_type>collection</action_type>
+                    </route_collection_with_userid>
+                </routes>
+                <versions>1</versions>
+            </wishlist>
+            <searchproduct translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_searchproduct</model>
+                <title>Product search API</title>
+                <sort_order>13</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/searchproduct/:name/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </searchproduct>
+            <homemenu translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_homemenu</model>
+                <title>Home page Menu</title>
+                <sort_order>14</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>homemenu</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </homemenu>
+            <customercheck translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_customercheck</model>
+                <title>Customer check</title>
+                <sort_order>15</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <email>email</email>                    
+                </attributes>
+                <routes>
+                    <route>
+                        <route>/customercheck/:email</route>
+                        <action_type>entity</action_type>
+                    </route>
+                </routes>
+                <versions>1</versions>
+            </customercheck>
+            <forgetpwd translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_forgetpwd</model>
+                <title>Customer Forget password API</title>
+                <sort_order>16</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <id>Id</id>
+                    <error>Error</error>
+                </attributes>
+                <routes>
+                    <route>
+                        <route>/forgetpwd/:email</route>
+                        <action_type>entity</action_type>
+                    </route>
+                </routes>
+                <versions>1</versions>
+            </forgetpwd>
+            <categorysort translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_categorysort</model>
+                <title>Category sort options</title>
+                <sort_order>17</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/categorysort/:catid/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </categorysort>
+            <createcart translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_createcart</model>
+                <title>Create a cart</title>
+                <sort_order>18</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route>
+                        <route>createcart</route>
+                        <action_type>entity</action_type>
+                    </route>
+                </routes>
+                <versions>1</versions>
+            </createcart>
+            <customercart translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_customercart</model>
+                <title>Customer Cart</title>
+                <sort_order>19</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <userid>User Id</userid>
+                    <cartid>cart Id</cartid>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>customercart</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                    <route_with_userid>
+                        <route>/customercart/:userid/</route>
+                        <action_type>entity</action_type>
+                    </route_with_userid>
+                </routes>
+                <versions>1</versions>
+            </customercart>
+            <countrylist translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_countrylist</model>
+                <title>Country List</title>
+                <sort_order>20</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>countrylist</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </countrylist>
+            <regionlist translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_regionlist</model>
+                <title>Region List</title>
+                <sort_order>21</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <entity_id>Product ID</entity_id>                    
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>regionlist/:countryid/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </regionlist>
+            <addresstocart translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_addresstocart</model>
+                <title>Address assign to cart</title>
+                <sort_order>22</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <addressid>Customer Address ID</addressid>
+                    <mode>Customer Address mode</mode>
+                    <is_default_billing>Is Default Billing Address</is_default_billing>
+                    <is_default_shipping>Is Default Shipping Address</is_default_shipping>
+                </attributes>
+                <validators>
+                    <eav>
+                        <admin>
+                            <entity_model>customer/address</entity_model>
+                            <form_model>customer/form</form_model>
+                            <form_code>
+                                <update>adminhtml_customer_address</update>
+                            </form_code>
+                        </admin>
+                    </eav>
+                </validators>
+                <routes>
+                    <route_collection>
+                        <route>/addresstocart/:cartid/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </addresstocart>
+            <producttocart translate="title" module="M3_Restapi">
+                <group>restapi</group>
+                <model>restapi/api2_producttocart</model>
+                <title>product assign to cart</title>
+                <sort_order>23</sort_order>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                    </admin>
+                </privileges>
+                <attributes>
+                    <product_id>product ID</product_id>
+                    <qty>Quantity</qty>
+                    <options>options</options>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/producttocart/:cartid/</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </producttocart>
+        </resources>
+    </api2>
+</config>

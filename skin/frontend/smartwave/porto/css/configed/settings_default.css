@@ -1,0 +1,18 @@
+/**
+ * WARNING: Do not change this file. Your changes will be lost.
+ * 2017-06-16 23:31:45 */
+
+.filter-title>a { text-transform: none; }
+.product-image-area {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+.filter-products .products div.item .product-image {
+  border-radius: 0;
+}
+#brands-slider-demo-2.owl-no-narrow .owl-item .item { padding-top: 15px; }
+.footer-middle .block .block-title strong {
+  font-weight: 700;
+  text-transform: uppercase;
+}

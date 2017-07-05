@@ -1,0 +1,16 @@
+<script type="text/javascript"> 
+//<![CDATA[
+
+    OptionDependent.Config = {  
+      inPreconfigured   : <?php echo $this->getInPreconfigured() ?>,
+      config            : <?php echo $this->getConfig() ?>  
+    };
+
+    var optionDependent = new OptionDependent.Main(); 
+
+//]]>
+jQuery( document ).ready(function() {
+    jQuery( ".options-list-radio input[type='radio']:first").click();
+});
+
+</script>

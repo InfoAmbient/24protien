@@ -1,0 +1,34 @@
+<?php 
+
+/**
+ * Tour list template
+ *
+ * @category    ZombieStudio
+ * @package     ZombieStudio_Tour
+ * @author      Ultimate Module Creator
+ */
+?>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_tours = $this->getTours(); ?>
+<div class="page-title tour-title">
+    <?php if (Mage::helper('zombiestudio_tour/tour')->isRssEnabled()) : ?>
+        <a href="<?php echo Mage::helper('zombiestudio_tour/tour')->getRssUrl();?>" class="link-rss"><?php echo Mage::helper('zombiestudio_tour')->__('Subscribe to RSS Feed')?></a>
+    <?php endif;?>
+    <h1><?php echo Mage::helper('zombiestudio_tour')->__('Tours') ?></h1>
+</div>
+<?php if ($_tours->getSize() > 0) :?>
+    <?php echo $this->getPagerHtml(); ?>
+    <div class="tour-list-container">
+    <?php foreach ($_tours as $_tour) : ?>
+        <div class="tour-list-item">
+            <a href="<?php echo $_tour->getTourUrl()?>">
+                <?php echo $_tour->getAlng();?>
+            </a><br />
+        </div>
+    <?php endforeach;?>
+    </div>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('zombiestudio_tour')->__('There are no tours at this moment');?>
+<?php endif;?>

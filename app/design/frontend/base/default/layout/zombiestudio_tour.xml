@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<layout>
+    <default>
+        <reference name="footer_links">
+            <action method="addLink" translate="label title" module="zombiestudio_tour">
+                <label>Tours</label>
+                <url helper="zombiestudio_tour/tour/getToursUrl" />
+                <title>Tours</title>
+                <prepare />
+                <urlParams/>
+                <position>120</position>
+            </action>
+        </reference>
+    </default>
+    <zombiestudio_tour_tour_index translate="label" module="zombiestudio_tour">
+        <label>Tours list</label>
+        <update handle="page_three_columns" />
+        <reference name="content">
+            <block type="zombiestudio_tour/tour_list" name="tour_list" template="zombiestudio_tour/tour/list.phtml" />
+        </reference>
+    </zombiestudio_tour_tour_index>
+    <zombiestudio_tour_tour_view translate="label" module="zombiestudio_tour">
+        <label>Tour view page</label>
+        <update handle="page_three_columns" />
+        <reference name="content">
+            <block type="zombiestudio_tour/tour_view" name="tour_view" template="zombiestudio_tour/tour/view.phtml" />
+        </reference>
+    </zombiestudio_tour_tour_view>
+    <zombiestudio_tour_tour_rss translate="label" module="zombiestudio_tour">
+        <label>Tours rss feed</label>
+        <block type="zombiestudio_tour/tour_rss" output="toHtml" name="zombiestudio_tour.tour.rss" />
+    </zombiestudio_tour_tour_rss>
+    <rss_index_index>
+        <reference name="content">
+            <block type="zombiestudio_tour/rss" name="tour.rss" template="zombiestudio_tour/rss.phtml">
+                <action method="addFeed" ifconfig="zombiestudio_tour/tour/rss" translate="label" module="zombiestudio_tour">
+                    <label>Tours</label>
+                    <url helper="zombiestudio_tour/tour/getRssUrl" />
+                </action>
+            </block>
+        </reference>
+    </rss_index_index>
+</layout>

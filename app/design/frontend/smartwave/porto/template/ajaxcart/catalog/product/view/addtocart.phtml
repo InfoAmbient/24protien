@@ -1,0 +1,45 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Order Now'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <div class="qty-holder">
+            <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+            <div class="qty-changer">
+                <a href="javascript:void(0)" class="qty_inc"><i class="icon-up-dir"></i></a>
+                <a href="javascript:void(0)" class="qty_dec"><i class="icon-down-dir"></i></a>
+            </div>
+        </div>
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><i class="icon-cart"></i><?php  echo $buttonTitle ?></span></span></button>
+        <span id='ajax_loader' style='display:none'><i class="ajax-loader small animate-spin"></i></span>
+		<?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
+<?php if(Mage::getStoreConfig('ajaxcart/addtolinks/enableproduct')): ?>
+	<ul class="add-to-links">
+	<?php if ($this->helper('wishlist')->isAllow()) : ?>
+		<li><a href="#" onclick="ajaxWishlist(this,'<?php echo $_wishlistSubmitUrl ?>','<?php echo $_product->getId()?>'); return false;" class="link-wishlist"><i class="icon-wishlist"></i></a></li>
+	<?php endif; ?>
+	<?php
+		$_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+	?>
+	<?php if($_compareUrl) : ?>
+		<li><a href="#" onclick="ajaxCompare(this,'<?php echo $_compareUrl?>','<?php echo $_product->getId()?>'); return false;" class="link-compare"><i class="icon-compare"></i></a></li>
+	<?php endif; ?>    
+	</ul>
+<?php else : ?>
+	<ul class="add-to-links">
+    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+        <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><i class="icon-wishlist"></i></a></li>
+    <?php endif; ?>
+    <?php
+        $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+    ?>
+    <?php if($_compareUrl) : ?>
+        <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><i class="icon-compare"></i></a></li>
+    <?php endif; ?>
+    </ul>
+<?php endif;?>

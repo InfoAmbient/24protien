@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<config>
+    <modules>
+        <M3_Ismsregister>
+            <version>0.0.1</version>
+        </M3_Ismsregister>
+    </modules>
+    <global>
+        <models>
+            <sslwismsregister>
+                <class>Ismsregister_Model</class>
+            </sslwismsregister>
+        </models>
+        <events>
+            <customer_register_success>
+                <observers>
+                    <M3_Ismsregister_model_observer>
+                        <type>singleton</type>
+                        <class>M3_Ismsregister_Model_Observer</class>
+                        <method>SendSmsRegister</method>
+                    </M3_Ismsregister_model_observer>
+                </observers>
+            </customer_register_success> 
+        </events>
+    </global>
+</config>

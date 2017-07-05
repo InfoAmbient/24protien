@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Tour view widget template
+ *
+ * @category    ZombieStudio
+ * @package     ZombieStudio_Tour
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_tour = $this->getCurrentTour();?>
+<?php if ($_tour) :?>
+    <div class="tour-widget-view">
+        <h3><?php echo $_tour->getAtext()?></h3>
+        <div>
+
+        </div>
+    </div>
+<?php endif;?>

@@ -1,0 +1,202 @@
+<?php
+$_helper = $this->helper('catalog/output');
+$_image_helper = $this->helper('catalog/image');
+    $store = Mage::app()->getStore();
+    $code  = $store->getCode();
+    $aspect_ratio = Mage::getStoreConfig("porto_settings/category/aspect_ratio",$code);
+    $ratio_width = Mage::getStoreConfig("porto_settings/category/ratio_width",$code);
+    $ratio_height = Mage::getStoreConfig("porto_settings/category/ratio_height",$code);
+    
+    if(!$ratio_width)
+        $ratio_width = 300;
+    if(!$ratio_height)
+        $ratio_height = 400;
+?>
+<?php
+$_coreHelper = $this->helper('core');
+?>
+<?php if($this->getItems()->getSize()): ?>
+<div class="block block-related">
+    <div class="right-description">
+        <h2><?php echo $this->__('Related Products') ?></h2>
+        <div class="short-description"><?php echo $this->__('For better result,this item is frequently taken with:'); ?></div>
+        </div>
+    <div class="block-content">
+<!--        <p class="block-subtitle"><?php //echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?php //echo $this->__('select all') ?></a></p>-->
+        <div class="owl-carousel owl-theme" id="block-related">
+        <?php
+            $i = 0;
+            $items = $this->getItems();
+            $count = count($items);
+        ?>
+            <div class="item">
+        <?php foreach($items as $_item): ?>
+        <?php
+            $i++;
+        ?>
+                <div class="product">
+                    <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
+                        <?php if (!$_item->getRequiredOptions()): ?>
+                            <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class="product-image"><img src="<?php if($aspect_ratio):?><?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($ratio_width);?><?php else: ?><?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize($ratio_width,$ratio_height); ?><?php endif; ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+                        </div>
+                        <div class="product-details col-xs-6">
+                            <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
+                            <?php if(Mage::getStoreConfig("porto_settings/category/rating_star", $code)):?>
+                            <?php if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')): ?>
+                            <?php 
+                                $review_html = $this->getReviewsSummaryHtml($_item, 'short');
+                                if($review_html){
+                                    echo $review_html;
+                                }else{
+                            ?>
+                                <div class="ratings">
+                                    <div class="rating-box">
+                                        <div class="rating" style="width:0"></div>
+                                    </div>
+                                </div>
+                            <?php                            
+                                }
+                            ?>
+                            <?php else: ?>
+                                <div class="ratings">
+                                    <div class="rating-box">
+                                        <div class="rating" style="width:0"></div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if(Mage::getStoreConfig("porto_settings/category/product_price", $code)):?>
+                            <?php $product = Mage::getModel('catalog/product')->load($_item->getId()); ?>
+                    <?php if(count($product->getOptions() > 0 )){
+                        $optiontitles = array();
+                       foreach ($product->getOptions() as $o) {
+                           if(strtolower($o->getTitle()) == "weight"){
+                               $Weightcount = count($o->getValues());
+                           }
+                       $optiontitles[] = $o->getTitle();
+                       }
+                        } ?>
+                        <?php if((in_array('Weight',$optiontitles) || in_array('weight',$optiontitles)) && $Weightcount > 1 ){ ?>
+                          <?php if(Mage::getStoreConfig("porto_settings/category/product_price", $code)):?>
+                            <p class="pricefromtext"><?php echo $this->__('Starting from:');?></p>
+                    <?php echo $this->getPriceHtml($_item, true, '-related') ?>
+                    <?php endif; ?>
+                        <?php }else{ ?>
+                    <?php if(Mage::getStoreConfig("porto_settings/category/product_price", $code)):?>
+                     <p class="pricefromtext"><?php echo $this->__('Price:');?></p>
+                    <?php echo $this->getPriceHtml($_item, true, '-related') ?>
+                    <?php endif; ?>
+                    <?php } ?>
+                            <?php //echo $this->getPriceHtml($_item, true, '-related') ?>
+                            <?php endif; ?>
+                    
+                            <?php if(Mage::getStoreConfig("porto_settings/category/actions", $code)):?>
+                    <div class="actions">
+                        <?php if(Mage::getStoreConfig("porto_settings/category/qty_field", $code)):?>
+                            <?php if($product->isSaleable()): ?>
+                                <?php  if ( !($product->getTypeInstance(true)->hasOptions($product) || $product->isGrouped()) ) :  ?>
+                                <?php if(!Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code)):?>
+                                <form id="addtocart_form_<?php echo $product->getId(); ?>" action="<?php echo $this->getAddToCartUrl($product) ?>" method="post">
+                                    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+                                <?php endif; ?>
+                                <div class="qty-field">
+                                    <label for="qty"><?php echo $this->__('Qty:') ?></label>
+                                    <div class="qty-holder">
+                                        <input type="text" name="qty" id="qty_<?php echo $product->getId(); ?>" maxlength="12" value="<?php echo $product->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+                                        <div class="qty-changer">
+                                            <a href="javascript:void(0)" class="qty_inc"><i class="icon-up-dir"></i></a>
+                                            <a href="javascript:void(0)" class="qty_dec"><i class="icon-down-dir"></i></a>
+                                        </div>
+                            </div>
+                        </div>
+                    <?php if(!Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code)):?>
+                                </form>
+                                <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if($product->isSaleable()): ?>
+                            <?php  if ( !($product->getTypeInstance(true)->hasOptions($product)/*$product->getData('has_options')*/ || $product->isGrouped()) ) :  ?>
+                                <a href="<?php if(!Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code) && !Mage::getStoreConfig("porto_settings/category/qty_field", $code)): ?><?php echo $this->getAddToCartUrl($product) ?><?php else: ?>javascript:void(0)<?php endif; ?>" class="addtocart" title="<?php echo $this->__('Add to Cart') ?>" <?php if(Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code)):?>onclick="setLocationAjax(this,'<?php echo $this->getAddToCartUrl($product) ?>','<?php echo $product->getId(); ?>')"<?php elseif(Mage::getStoreConfig("porto_settings/category/qty_field", $code)): ?>onclick="document.getElementById('addtocart_form_<?php echo $product->getId(); ?>').submit()"<?php endif; ?>><i class="icon-cart"></i><span>&nbsp;<?php echo $this->__('Shop Now') ?></span></a>
+                            <?php else : ?>
+                                <?php if(in_array('Flavor',$optiontitles) || in_array('flavor',$optiontitles)){ ?>
+                        <a href="<?php if(Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code)): ?>javascript:showOptions('<?php echo $product->getId() ?>')<?php else: ?><?php echo $this->getAddToCartUrl($product) ?><?php endif; ?>" class="addtocart" title="<?php echo $this->__('Add to Cart') ?>"><i class="icon-cart"></i><span>&nbsp;<?php echo $this->__('Select Flavor') ?></span></a>
+                        <?php }else{ ?>
+                         <a href="<?php if(Mage::getStoreConfig("ajaxcart/addtocart/enablecategory", $code)): ?>javascript:showOptions('<?php echo $product->getId() ?>')<?php else: ?><?php echo $this->getAddToCartUrl($product) ?><?php endif; ?>" class="addtocart" title="<?php echo $this->__('Add to Cart') ?>"><i class="icon-cart"></i><span>&nbsp;<?php echo $this->__('Shop Now') ?></span></a>
+                        <?php } ?>
+                                <a href='<?php echo $this->getUrl('ajaxcart/index/options',array('product_id'=>$product->getId()));?>' class='fancybox' id='fancybox<?php echo $product->getId()?>' style='display:none'>Options</a>
+                            <?php endif;?>
+                        <?php else: ?>
+                            <a href="javascript:void(0);" class="addtocart outofstock" title="<?php echo $this->__('Out of stock') ?>"><?php echo $this->__('Out of stock') ?></span></a>
+                        <?php endif; ?>
+                        <div class="clearer"></div>
+                    </div>
+                    <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+        <?php
+            if($i % 3 == 0 && $i<$count)
+                echo '</div><div class="item">';
+        ?>
+        <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+    $$('.related-checkbox').each(function(elem){
+        Event.observe(elem, 'click', addRelatedToProduct)
+    });
+
+    var relatedProductsCheckFlag = false;
+    function selectAllRelated(txt){
+        if (relatedProductsCheckFlag == false) {
+            $$('.related-checkbox').each(function(elem){
+                elem.checked = true;
+            });
+            relatedProductsCheckFlag = true;
+            txt.innerHTML="<?php echo $this->__('unselect all') ?>";
+        } else {
+            $$('.related-checkbox').each(function(elem){
+                elem.checked = false;
+            });
+            relatedProductsCheckFlag = false;
+            txt.innerHTML="<?php echo $this->__('select all') ?>";
+        }
+        addRelatedToProduct();
+    }
+
+    function addRelatedToProduct(){
+        var checkboxes = $$('.related-checkbox');
+        var values = [];
+        for(var i=0;i<checkboxes.length;i++){
+            if(checkboxes[i].checked) values.push(checkboxes[i].value);
+        }
+        if($('related-products-field')){
+            $('related-products-field').value = values.join(',');
+        }
+    }
+    jQuery(function($){
+        $("#block-related").owlCarousel({
+            navigation : true, // Show next and prev buttons
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem:true,
+            pagination:false,
+            <?php if (!Mage::getStoreConfig("porto_settings/general/rtl",$code)) : ?>
+            navigationText:["<i class='icon-left-open'></i>","<i class='icon-right-open'></i>"]
+            <?php else : ?>
+            navigationText:["<i class='icon-right-open'></i>","<i class='icon-left-open'></i>"]
+            <?php endif; ?>
+        });
+    });
+    //]]>
+    </script>
+</div>
+<?php endif ?>

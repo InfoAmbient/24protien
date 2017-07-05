@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<config>
+    <modules>
+        <M3_Ismsorderplace>
+            <version>0.0.1</version>
+        </M3_Ismsorderplace>
+    </modules>
+    <global>
+        <models>
+            <sslwismsorderplace>
+                <class>Ismsorderplace_Model</class>
+            </sslwismsorderplace>
+        </models>
+        <events>
+            <sales_model_service_quote_submit_after>
+                <observers>
+                    <M3_Ismsorderplace_model_observer>
+                        <type>singleton</type>
+                        <class>M3_Ismsorderplace_Model_Observer</class>
+                        <method>SendSmsOrderPlace</method>
+                    </M3_Ismsorderplace_model_observer>
+                </observers>
+            </sales_model_service_quote_submit_after> 
+        </events>
+    </global>
+</config>

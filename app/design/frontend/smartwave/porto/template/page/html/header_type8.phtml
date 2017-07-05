@@ -1,0 +1,181 @@
+<?php echo $this->getChildHtml('sticky.nav') ?>
+<?php
+    $store = Mage::app()->getStore();
+    $code  = $store->getCode();
+    $custom_block = Mage::getStoreConfig('porto_settings/header/static_block', $code);
+?>
+<div class="header-container type8">
+    <div class="header container">
+        <div class="row">
+        <div class="col-sm-2 logo-section">
+        <?php if ($this->getIsHomePage()):?>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt(); ?></strong><a href="<?php echo $this->getUrl(''); ?>" title="<?php echo $this->getLogoAlt(); ?>" class="logo"><img src="<?php echo $this->getLogoSrc(); ?>" alt="<?php echo $this->getLogoAlt(); ?>" /></a></h1>
+        <?php else:?>
+        <a href="<?php echo $this->getUrl(''); ?>" title="<?php echo $this->getLogoAlt(); ?>" class="logo"><strong><?php echo $this->getLogoAlt(); ?></strong><img src="<?php echo $this->getLogoSrc(); ?>" alt="<?php echo $this->getLogoAlt(); ?>" /></a>
+        <?php endif; ?>
+        </div>
+        <div class="col-sm-10 header-right-section">
+        <div class="header-right-top-section">
+  
+<div class="tel-call-area">
+                   
+		  <div id="number"> <i class="fa fa-phone"></i><a href="tel:07728272424"> 07728272424</a></span>
+	 
+	  </div>
+
+ 
+  <a class="dropbtn"><div class="dropdown1"><p><?php echo $this->__("Click for more numbers!"); ?></p></a>
+  <div class="dropdown-content">
+    <a href="tel:07727272925"><?php echo $this->__("Asia:07727272925"); ?></a>
+    <a href="tel:07802223000"><?php echo $this->__("Zain:07802223000"); ?></a>
+	<a href="tel:07505002424"><?php echo $this->__("Kork:07505002424"); ?></a>
+    <a style="text-decoration:underline;" href="https://www.24protein.com/contacts"><?php echo $this->__("Contact Us"); ?></a>
+  </div>
+</div>
+				   
+                   
+</div>
+    
+         <div class="telcall-search-section">    
+         <div class="search-area">
+<!--                <a href="javascript:void(0)" class="search-icon"><i class="icon-search"></i></a>-->
+                <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('catalogsearch/form.mini.phtml')->toHtml(); ?>
+                <?php //echo $this->getChildHtml('topSearch'); ?>
+            </div>     
+        <div class="cart-area-new">
+            <?php $useragent=$_SERVER['HTTP_USER_AGENT'];
+
+if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))){
+
+  ?>
+            <div class="menu-icon"><a href="javascript:void(0)" title="<?php echo $this->__('Menu'); ?>"><i class="fa fa-bars"></i></a></div>
+<?php } ?>
+            <div class="switcher-area">
+                <?php
+                    $store_currency = $this->getChildHtml('store_currency');
+                    $store_language = $this->getChildHtml('store_language');
+                ?>
+                <?php echo $store_currency; ?>
+                <?php echo $store_language; ?>
+	        <?php echo $this->getChildHtml('compare_link'); ?>
+            </div>
+            <div class="top-links-area">
+                <div class="top-links-icon"><a href="javascript:void(0)"><?php echo $this->__("links"); ?></a></div>
+                <?php echo $this->getChildHtml('topLinks'); ?>
+            </div>
+            <?php echo $this->getChildHtml('minicart'); ?>
+        </div>
+        </div> 
+        </div>
+            <div class="header-right-bottom-section">
+            <div class="header-menu-section">
+                <?php echo $this->getChildHtml('topMenu') ?>
+            </div> 
+            </div>
+        </div>
+        </div>
+        <?php echo $this->getChildHtml("demo_header_tooltip"); ?>
+    </div>
+</div>
+<?php echo $this->getChildHtml('mobile.nav') ?>
+
+<script>
+   jQuery(document).ready(function(){
+	   
+		 setTimeout(function () {
+		   jQuery(".cms-index-index .main-container").hide();
+		   jQuery(".cms-index-index .footer-container").hide();
+		}, 1000);
+	   
+	  //jQuery(".top-container").append("<div class='myArrow'><img src='<?php echo $this->getSkinUrl(); ?>images/downArrow.png'/></div>");
+	  
+	    jQuery(".cms-index-index .myArrow img").click(function(){
+		  
+//		  if(jQuery(".cms-index-index .main-container").hasClass("active")){
+//			   jQuery(".cms-index-index .main-container").removeClass("active"); 
+//			   jQuery(".cms-index-index .footer-container").removeClass("active"); 	
+//			   jQuery(".cms-index-index .main-container").slideUp(); 
+//			   jQuery(".cms-index-index .footer-container").slideUp(); 
+//		  }else{		
+//		  	  jQuery(".cms-index-index .main-container").addClass("active"); 
+//			  jQuery(".cms-index-index .footer-container").addClass("active");  		
+//			  jQuery(".cms-index-index .main-container").slideDown();
+//			  jQuery(".cms-index-index .footer-container").slideDown(); 
+//			  jQuery('html, body').animate({scrollTop: '+=700px'}, 800);				  
+//			   
+//		  }
+		  
+	    });
+	   
+   });
+</script>
+<?php
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+if( $identifier == "porto_home_2_new") { 
+    $store = Mage::app()->getStore();
+    $code  = $store->getCode();
+    
+    ?>
+
+<div class="livechatwindow" style="display: none;">
+    <?php if($code == "default"){ ?>
+<script type='text/javascript'>var fc_CSS=document.createElement('link');fc_CSS.setAttribute('rel','stylesheet');var fc_isSecured = (window.location && window.location.protocol == 'https:');var fc_lang = document.getElementsByTagName('html')[0].getAttribute('lang'); var fc_rtlLanguages = ['ar','he']; var fc_rtlSuffix = (fc_rtlLanguages.indexOf(fc_lang) >= 0) ? '-rtl' : '';fc_CSS.setAttribute('type','text/css');fc_CSS.setAttribute('href',((fc_isSecured)? 'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets1.chat.freshdesk.com')+'/css/visitor'+fc_rtlSuffix+'.css');document.getElementsByTagName('head')[0].appendChild(fc_CSS);var fc_JS=document.createElement('script'); fc_JS.type='text/javascript'; fc_JS.defer=true;fc_JS.src=((fc_isSecured)?'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets.chat.freshdesk.com')+'/js/visitor.js';(document.body?document.body:document.getElementsByTagName('head')[0]).appendChild(fc_JS);window.livechat_setting= 'eyJ3aWRnZXRfc2l0ZV91cmwiOiIyNHByb3RlaW4uZnJlc2hkZXNrLmNvbSIsInByb2R1Y3RfaWQiOjI4MDAwMDAwMDgyLCJuYW1lIjoiMjQgUHJvdGVpbiAtIEVuZ2xpc2giLCJ3aWRnZXRfZXh0ZXJuYWxfaWQiOjI4MDAwMDAwMDgyLCJ3aWRnZXRfaWQiOiIxZmE3ZWI3Ny1lZTk1LTQ5NzctYmUyMC0xM2RmYzE3Y2U3MGUiLCJzaG93X29uX3BvcnRhbCI6dHJ1ZSwicG9ydGFsX2xvZ2luX3JlcXVpcmVkIjpmYWxzZSwibGFuZ3VhZ2UiOiJhciIsInRpbWV6b25lIjoiQmFnaGRhZCIsImlkIjoyODAwMDAwNTU5NywibWFpbl93aWRnZXQiOjAsImZjX2lkIjoiNzEwZmVjOWJiOWEwM2Y4N2FiOWQzZTcxYWZiNDQ1NzAiLCJzaG93IjoxLCJyZXF1aXJlZCI6MiwiaGVscGRlc2tuYW1lIjoiMjQgUHJvdGVpbiAiLCJuYW1lX2xhYmVsIjoiTmFtZSIsIm1lc3NhZ2VfbGFiZWwiOiJNZXNzYWdlIiwicGhvbmVfbGFiZWwiOiJQaG9uZSIsInRleHRmaWVsZF9sYWJlbCI6IlRleHRmaWVsZCIsImRyb3Bkb3duX2xhYmVsIjoiRHJvcGRvd24iLCJ3ZWJ1cmwiOiIyNHByb3RlaW4uZnJlc2hkZXNrLmNvbSIsIm5vZGV1cmwiOiJjaGF0LmZyZXNoZGVzay5jb20iLCJkZWJ1ZyI6MSwibWUiOiJNZSIsImV4cGlyeSI6MCwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIiwiZW5kX2NoYXRfdGhhbmtfbXNnIjoiVGhhbmsgeW91ISEhIiwiZW5kX2NoYXRfZW5kX3RpdGxlIjoiRW5kIiwiZW5kX2NoYXRfY2FuY2VsX3RpdGxlIjoiQ2FuY2VsIiwic2l0ZV9pZCI6IjcxMGZlYzliYjlhMDNmODdhYjlkM2U3MWFmYjQ0NTcwIiwiYWN0aXZlIjoxLCJyb3V0aW5nIjp7ImNob2ljZXMiOnsibGlzdDEiOlsiMCJdLCJsaXN0MiI6WyIwIl0sImxpc3QzIjpbIjAiXSwiZGVmYXVsdCI6WyIwIl19LCJkcm9wZG93bl9iYXNlZCI6ImZhbHNlIn0sInByZWNoYXRfZm9ybSI6MSwiYnVzaW5lc3NfY2FsZW5kYXIiOm51bGwsInByb2FjdGl2ZV9jaGF0IjoxLCJwcm9hY3RpdmVfdGltZSI6MTgwLCJzaXRlX3VybCI6IjI0cHJvdGVpbi5mcmVzaGRlc2suY29tIiwiZXh0ZXJuYWxfaWQiOjI4MDAwMDAwMDgyLCJkZWxldGVkIjowLCJtb2JpbGUiOjEsImFjY291bnRfaWQiOm51bGwsImNyZWF0ZWRfYXQiOiIyMDE3LTA0LTE1VDE0OjEwOjEyLjAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAxNy0wNC0xOFQxMzowMzo1NC4wMDBaIiwiY2JEZWZhdWx0TWVzc2FnZXMiOnsiY29icm93c2luZ19zdGFydF9tc2ciOiJZb3VyIHNjcmVlbnNoYXJlIHNlc3Npb24gaGFzIHN0YXJ0ZWQiLCJjb2Jyb3dzaW5nX3N0b3BfbXNnIjoiWW91ciBzY3JlZW5zaGFyaW5nIHNlc3Npb24gaGFzIGVuZGVkIiwiY29icm93c2luZ19kZW55X21zZyI6IllvdXIgcmVxdWVzdCB3YXMgZGVjbGluZWQiLCJjb2Jyb3dzaW5nX2FnZW50X2J1c3kiOiJBZ2VudCBpcyBpbiBzY3JlZW4gc2hhcmUgc2Vzc2lvbiB3aXRoIGN1c3RvbWVyIiwiY29icm93c2luZ192aWV3aW5nX3NjcmVlbiI6IllvdSBhcmUgdmlld2luZyB0aGUgdmlzaXRvcuKAmXMgc2NyZWVuICIsImNvYnJvd3NpbmdfY29udHJvbGxpbmdfc2NyZWVuIjoiWW91IGhhdmUgYWNjZXNzIHRvIHZpc2l0b3LigJlzIHNjcmVlbiAiLCJjb2Jyb3dzaW5nX3JlcXVlc3RfY29udHJvbCI6IlJlcXVlc3QgdmlzaXRvciBmb3Igc2NyZWVuIGFjY2VzcyAiLCJjb2Jyb3dzaW5nX2dpdmVfdmlzaXRvcl9jb250cm9sIjoiR2l2ZSBhY2Nlc3MgYmFjayB0byB2aXNpdG9yICIsImNvYnJvd3Npbmdfc3RvcF9yZXF1ZXN0IjoiRW5kIHlvdXIgc2NyZWVuc2hhcmluZyBzZXNzaW9uIiwiY29icm93c2luZ19yZXF1ZXN0X2NvbnRyb2xfcmVqZWN0ZWQiOiJZb3VyIHJlcXVlc3Qgd2FzIGRlY2xpbmVkIiwiY29icm93c2luZ19jYW5jZWxfdmlzaXRvcl9tc2ciOiJTY3JlZW5zaGFyaW5nIGlzIGN1cnJlbnRseSB1bmF2YWlsYWJsZSIsImNvYnJvd3NpbmdfYWdlbnRfcmVxdWVzdF9jb250cm9sIjoiQWdlbnQgaXMgcmVxdWVzdGluZyBhY2Nlc3MgdG8geW91ciBzY3JlZW4iLCJjYl92aWV3aW5nX3NjcmVlbl92aSI6IkFnZW50IGNhbiB2aWV3IHlvdXIgc2NyZWVuICIsImNiX2NvbnRyb2xsaW5nX3NjcmVlbl92aSI6IkFnZW50IGhhcyBhY2Nlc3MgdG8geW91ciBzY3JlZW4gIiwiY2Jfdmlld19tb2RlX3N1YnRleHQiOiJZb3VyIGFjY2VzcyB0byB0aGUgc2NyZWVuIGhhcyBiZWVuIHdpdGhkcmF3biAiLCJjYl9naXZlX2NvbnRyb2xfdmkiOiJBbGxvdyBhZ2VudCB0byBhY2Nlc3MgeW91ciBzY3JlZW4gIiwiY2JfdmlzaXRvcl9zZXNzaW9uX3JlcXVlc3QiOiJBZ2VudCBzZWVrcyBhY2Nlc3MgdG8geW91ciBzY3JlZW4gIn19';</script>
+<script>
+    	 jQuery('#lc_chat_header .lc-minimize').live('click',function(){
+        livechat && livechat.MainView.hideNormalChatWidget();
+        
+    });
+  </script>
+      <script>
+   document.addEventListener('fd_lc_ping_accepted',function(){
+     jQuery('#preclose').remove();
+   });
+        document.addEventListener('fd_lc_chat_closed',function(){
+          jQuery("#lc-close").css('pointer-events', 'auto')
+        });
+  </script>
+<?php }else{ ?>
+<script type='text/javascript'>var fc_CSS=document.createElement('link');fc_CSS.setAttribute('rel','stylesheet');var fc_isSecured = (window.location && window.location.protocol == 'https:');var fc_lang = document.getElementsByTagName('html')[0].getAttribute('lang'); var fc_rtlLanguages = ['ar','he']; var fc_rtlSuffix = (fc_rtlLanguages.indexOf(fc_lang) >= 0) ? '-rtl' : '';fc_CSS.setAttribute('type','text/css');fc_CSS.setAttribute('href',((fc_isSecured)? 'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets1.chat.freshdesk.com')+'/css/visitor'+fc_rtlSuffix+'.css');document.getElementsByTagName('head')[0].appendChild(fc_CSS);var fc_JS=document.createElement('script'); fc_JS.type='text/javascript'; fc_JS.defer=true;fc_JS.src=((fc_isSecured)?'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets.chat.freshdesk.com')+'/js/visitor.js';(document.body?document.body:document.getElementsByTagName('head')[0]).appendChild(fc_JS);window.livechat_setting= 'eyJ3aWRnZXRfc2l0ZV91cmwiOiIyNHByb3RlaW4uZnJlc2hkZXNrLmNvbSIsInByb2R1Y3RfaWQiOm51bGwsIm5hbWUiOiIyNCBQcm90ZWluIiwid2lkZ2V0X2V4dGVybmFsX2lkIjpudWxsLCJ3aWRnZXRfaWQiOiIzM2IwZTdjMC1jZmJkLTQ4NjQtYTYxMS1kODJjYjRhNTRiNGYiLCJzaG93X29uX3BvcnRhbCI6dHJ1ZSwicG9ydGFsX2xvZ2luX3JlcXVpcmVkIjpmYWxzZSwibGFuZ3VhZ2UiOiJhciIsInRpbWV6b25lIjoiQmFnaGRhZCIsImlkIjoyODAwMDAwNDk2NCwibWFpbl93aWRnZXQiOjEsImZjX2lkIjoiNzEwZmVjOWJiOWEwM2Y4N2FiOWQzZTcxYWZiNDQ1NzAiLCJzaG93IjoxLCJyZXF1aXJlZCI6MiwiaGVscGRlc2tuYW1lIjoiMjQgUHJvdGVpbiAiLCJuYW1lX2xhYmVsIjoiTmFtZSIsIm1lc3NhZ2VfbGFiZWwiOiJNZXNzYWdlIiwicGhvbmVfbGFiZWwiOiJQaG9uZSIsInRleHRmaWVsZF9sYWJlbCI6IlRleHRmaWVsZCIsImRyb3Bkb3duX2xhYmVsIjoiRHJvcGRvd24iLCJ3ZWJ1cmwiOiIyNHByb3RlaW4uZnJlc2hkZXNrLmNvbSIsIm5vZGV1cmwiOiJjaGF0LmZyZXNoZGVzay5jb20iLCJkZWJ1ZyI6MSwibWUiOiJNZSIsImV4cGlyeSI6MCwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIiwiZW5kX2NoYXRfdGhhbmtfbXNnIjoiVGhhbmsgeW91ISEhIiwiZW5kX2NoYXRfZW5kX3RpdGxlIjoiRW5kIiwiZW5kX2NoYXRfY2FuY2VsX3RpdGxlIjoiQ2FuY2VsIiwic2l0ZV9pZCI6IjcxMGZlYzliYjlhMDNmODdhYjlkM2U3MWFmYjQ0NTcwIiwiYWN0aXZlIjoxLCJyb3V0aW5nIjp7ImNob2ljZXMiOnsi2KfZhNmF2YbYqtis2KfYqiI6WyIwIl0sItin2YTYqtmI2LXZitmEINmI2KfZhNi02K3ZhiI6WyIwIl0sItin2LPYqtmB2LPYp9ix2KfYqiDYqtmC2YbZitipINi52YYg2KfZhNmF2YbYqtis2KfYqiI6WyIwIl0sImRlZmF1bHQiOlsiMCJdfSwiZHJvcGRvd25fYmFzZWQiOiJmYWxzZSJ9LCJwcmVjaGF0X2Zvcm0iOjEsImJ1c2luZXNzX2NhbGVuZGFyIjpudWxsLCJwcm9hY3RpdmVfY2hhdCI6MCwicHJvYWN0aXZlX3RpbWUiOjE4MCwic2l0ZV91cmwiOiIyNHByb3RlaW4uZnJlc2hkZXNrLmNvbSIsImV4dGVybmFsX2lkIjpudWxsLCJkZWxldGVkIjowLCJtb2JpbGUiOjEsImFjY291bnRfaWQiOm51bGwsImNyZWF0ZWRfYXQiOiIyMDE3LTA0LTE1VDEyOjQ0OjUwLjAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAxNy0wNS0yN1QxNDowNDozOS4wMDBaIiwiY2JEZWZhdWx0TWVzc2FnZXMiOnsiY29icm93c2luZ19zdGFydF9tc2ciOiJZb3VyIHNjcmVlbnNoYXJlIHNlc3Npb24gaGFzIHN0YXJ0ZWQiLCJjb2Jyb3dzaW5nX3N0b3BfbXNnIjoiWW91ciBzY3JlZW5zaGFyaW5nIHNlc3Npb24gaGFzIGVuZGVkIiwiY29icm93c2luZ19kZW55X21zZyI6IllvdXIgcmVxdWVzdCB3YXMgZGVjbGluZWQiLCJjb2Jyb3dzaW5nX2FnZW50X2J1c3kiOiJBZ2VudCBpcyBpbiBzY3JlZW4gc2hhcmUgc2Vzc2lvbiB3aXRoIGN1c3RvbWVyIiwiY29icm93c2luZ192aWV3aW5nX3NjcmVlbiI6IllvdSBhcmUgdmlld2luZyB0aGUgdmlzaXRvcuKAmXMgc2NyZWVuICIsImNvYnJvd3NpbmdfY29udHJvbGxpbmdfc2NyZWVuIjoiWW91IGhhdmUgYWNjZXNzIHRvIHZpc2l0b3LigJlzIHNjcmVlbiAiLCJjb2Jyb3dzaW5nX3JlcXVlc3RfY29udHJvbCI6IlJlcXVlc3QgdmlzaXRvciBmb3Igc2NyZWVuIGFjY2VzcyAiLCJjb2Jyb3dzaW5nX2dpdmVfdmlzaXRvcl9jb250cm9sIjoiR2l2ZSBhY2Nlc3MgYmFjayB0byB2aXNpdG9yICIsImNvYnJvd3Npbmdfc3RvcF9yZXF1ZXN0IjoiRW5kIHlvdXIgc2NyZWVuc2hhcmluZyBzZXNzaW9uIiwiY29icm93c2luZ19yZXF1ZXN0X2NvbnRyb2xfcmVqZWN0ZWQiOiJZb3VyIHJlcXVlc3Qgd2FzIGRlY2xpbmVkIiwiY29icm93c2luZ19jYW5jZWxfdmlzaXRvcl9tc2ciOiJTY3JlZW5zaGFyaW5nIGlzIGN1cnJlbnRseSB1bmF2YWlsYWJsZSIsImNvYnJvd3NpbmdfYWdlbnRfcmVxdWVzdF9jb250cm9sIjoiQWdlbnQgaXMgcmVxdWVzdGluZyBhY2Nlc3MgdG8geW91ciBzY3JlZW4iLCJjYl92aWV3aW5nX3NjcmVlbl92aSI6IkFnZW50IGNhbiB2aWV3IHlvdXIgc2NyZWVuICIsImNiX2NvbnRyb2xsaW5nX3NjcmVlbl92aSI6IkFnZW50IGhhcyBhY2Nlc3MgdG8geW91ciBzY3JlZW4gIiwiY2Jfdmlld19tb2RlX3N1YnRleHQiOiJZb3VyIGFjY2VzcyB0byB0aGUgc2NyZWVuIGhhcyBiZWVuIHdpdGhkcmF3biAiLCJjYl9naXZlX2NvbnRyb2xfdmkiOiJBbGxvdyBhZ2VudCB0byBhY2Nlc3MgeW91ciBzY3JlZW4gIiwiY2JfdmlzaXRvcl9zZXNzaW9uX3JlcXVlc3QiOiJBZ2VudCBzZWVrcyBhY2Nlc3MgdG8geW91ciBzY3JlZW4gIn19';</script>
+<script>
+    	jQuery('#lc_chat_header .lc-minimize').live('click',function(){
+        livechat && livechat.MainView.hideNormalChatWidget();
+        
+    });
+  </script>
+      <script>
+   document.addEventListener('fd_lc_ping_accepted',function(){
+     jQuery('#preclose').remove();
+   });
+        document.addEventListener('fd_lc_chat_closed',function(){
+          jQuery("#lc-close").css('pointer-events', 'auto')
+        });
+  </script>
+
+<?php } ?>
+</div>
+<style>
+    #lc_chat_layout{
+        display:none;
+    }
+</style>
+<?php } ?>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.livechatpop').click(function(){
+            //alert('RTRTRT');
+            jQuery('#lc_chat_layout').css('display','block');
+            jQuery('#lc_chat_header').trigger('click');
+            var crossiconpath = '<?php echo $this->getSkinUrl() ?>images/crossicon.png';
+            var crossicon = '<img src="' + crossiconpath + '" />';
+            jQuery('#lc_chat_header .lc-minimize i').html(crossicon);
+            
+        });
+    })
+</script>
+
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0066/6513.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>

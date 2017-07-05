@@ -1,0 +1,37 @@
+<li class="bluebg"><a href="#">Shop by Brand </a></li>
+                <?php
+                //var_dump($brands);
+                $count=1; 
+                ?>
+                <?php foreach( $brands as $brand ):
+                $brand_title=$brand->getTitle();
+                $brand_str=explode('-', $brand_title);
+                $brand_en=$brand_str[1];
+                if($brand_en =="")
+                {
+                        $brand_en=$brand->getTitle();
+                }
+                	if($count >6)
+                	{
+                		?>
+                                <li class="willhide2" style="position:relative;">
+                        <i class="fa fa-angle-double-right st-icon" style="position: absolute;right: 20px;top: 11px;"></i>
+                		<a href="<?php echo $brand->getLink();?>" ><?php echo $brand_en;?></a></li>
+                		<?php
+                	}
+                	else
+                	{
+                		?>
+                		<li style="position:relative;">
+                        <i class="fa fa-angle-double-right st-icon" style="position: absolute;right: 20px;top: 11px;"></i>
+                        <a href="<?php echo $brand->getLink();?>" ><?php echo $brand_en;?></a></li>
+                		<?php
+                	}
+                	$count++;
+                ?>
+                	
+					
+				<?php endforeach; ?>
+				
+                </li>
+                <li class="btn-show2 bluebg" > <a href="#" >Show More (+)</a></li>

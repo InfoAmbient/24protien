@@ -1,0 +1,53 @@
+<?php $menuHelper = Mage::helper('megamenu'); ?>
+<?php $menuData = $menuHelper->getMenuData(); extract($menuData); ?>
+<div class="header-wrapper">
+<div class="main-nav">             
+        <div class="menu-wrapper">
+            <div class="menu-all-pages-container">
+                <ul class="menu">
+                    <li id="brands-mani-menu"><a class="top-brands-menulink" href="javascript:void(0)<?php //echo $this->getUrl('ves-brand') ?>"><?php echo $this->__("Brands"); ?></a>
+                        <div class="nav-sublist-dropdown" style="display: none; list-style: outside none none;">
+                            <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('custom/topbrands-submenu.phtml')->toHtml(); ?>
+                        </div>
+                    </li>
+                    <?php echo $menuHelper->getMenuContent(); ?>
+                </ul>
+            </div>
+        </div>   
+</div>
+
+</div>
+
+<script type="text/javascript">
+var SW_MENU_POPUP_WIDTH = <?php echo $_popupWidth; ?>;
+jQuery(function($){
+    $(document).ready(function(){
+        $('.main-nav .menu').et_menu({
+            type: "default",
+            delayTime: <?php echo $menuHelper->getConfig('popup/popup_delay'); ?>
+        });
+<?php if($menuHelper->getConfig('popup/ajax_load_popups')): ?>
+        url = "<?php echo Mage::getBaseUrl()."swmegamenu/index/showpopup" ?>";
+        $(".main-nav ul.menu > li.menu-static-width, .main-nav ul.menu > li.menu-full-width, .main-nav ul.menu > li.menu-item").off("mouseover").on("mouseover",function(){
+            if(!$(this).hasClass("ajax-loaded") && !$(this).hasClass("ajax-loading") && $(this).attr("data-id")) {
+                var cur_menu_item = $(this);
+                param = "?category_id="+$(this).attr("data-id");
+                $(cur_menu_item).addClass("ajax-loading");
+                $.ajax({
+                    url: url+param,
+                    dataType: 'json',
+                    type: 'post',
+                    success: function(data) {
+                        $(cur_menu_item).removeClass("ajax-loading").addClass("ajax-loaded");
+                        $(cur_menu_item).children(".nav-sublist-dropdown").children(".container").html(data['popup_content']).hide().fadeIn();
+                    },
+                    error: function(){
+                        $(cur_menu_item).removeClass("ajax-loading");
+                    }
+                });
+            }
+        });
+<?php endif; ?>
+    });
+});
+</script>

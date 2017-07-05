@@ -1,0 +1,40 @@
+<?php /* @var $this Mage_Catalog_Block_Product_View_Options_Type_Select */ ?>
+<?php
+$_helper = Mage::helper('catalog/output');
+$_option = $this->getOption();
+$_product = $_option->getProduct();
+$buttonTitle = Mage::helper('core')->quoteEscape($this->__('Order Now')); 
+$count = 1;
+foreach ($_option->getValues() as $_value) : 
+	$priceStr = $this->_formatPrice(array(
+                    'is_percent'    => ($_value->getPriceType() == 'percent'),
+                    'pricing_value' => $_value->getPrice($_value->getPriceType() == 'percent')
+                ));
+				
+?>
+<tr<?php if ($_option->decoratedIsLast) { ?> class="last"<?php } ?>>
+    <td class="title"><label<?php if ($_option->getIsRequire()) echo ' class="required"' ?>><?php if ($_option->getIsRequire()) echo '<em>*</em>' ?><?php echo $this->escapeHtml($_value->getTitle()) ?></label></td>
+    <td><?php echo $priceStr;  ?></td>
+    <td><?php if($_value->getAvailable() === 'yes') { echo 'IN Stock'; } else { echo 'Out Stock'; } ?></td>
+    <td>
+        <form action="<?php echo $this->helper('checkout/cart')->getAddUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+				<?php if($optionId != $_option->getId()) : ?>
+				</ul>
+				<ul class="options-list" id="options-<?php echo $_option->getId() ?>-list">
+				<?php endif; ?>
+				<li>
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="radio" name="options[<?php echo $_option->getId() ?>]" id="options_<?php echo $_option->getId().'_'.$count ?>" value="<?php echo $_value->getId() ?>" price="<?php echo round($_value->getPrice(), 2) ?>" class="btnshop"/>
+				</li>
+            </div>
+			<input type="number" min="0" pattern="\d*" name="qty" id="qty" maxlength="12" value="<?php echo max($this->getProductDefaultQty() * 1, 1) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+        	<button type="button" name="button_<?php echo $_option->getId().'_'.$count ?>" title="<?php echo $buttonTitle ?>" class="btnshop btn btn-primary"><span><span><?php echo $buttonTitle ?></span></span></button>
+        </form>
+    </td>  
+</tr>
+<?php 
+$count ++; 
+endforeach; 
+?>
