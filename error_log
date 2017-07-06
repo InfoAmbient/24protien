@@ -12643,3 +12643,6 @@ Stack trace:
 [05-Jul-2017 14:25:12 UTC] PHP Fatal error:  Call to undefined function mb_convert_encoding() in /home/n4prot5/public_html/lib/Pelago/Emogrifier.php on line 556
 [05-Jul-2017 14:32:09 UTC] PHP Fatal error:  Call to a member function getProductUrl() on boolean in /home/n4prot5/public_html/app/design/frontend/smartwave/porto/template/bestseller/bestseller.phtml on line 64
 [05-Jul-2017 14:33:34 UTC] PHP Fatal error:  Call to a member function getProductUrl() on boolean in /home/n4prot5/public_html/app/design/frontend/smartwave/porto/template/bestseller/bestseller.phtml on line 64
+[06-Jul-2017 08:19:09 UTC] PHP Fatal error:  Call to a member function getProductUrl() on boolean in /home/n4prot5/public_html/app/design/frontend/smartwave/porto/template/bestseller/bestseller.phtml on line 64
+[06-Jul-2017 08:41:36 UTC] PHP Fatal error:  Call to a member function getProductUrl() on boolean in /home/n4prot5/public_html/app/design/frontend/smartwave/porto/template/bestseller/bestseller.phtml on line 64
+[06-Jul-2017 08:41:55 UTC] PHP Fatal error:  Call to a member function getProductUrl() on boolean in /home/n4prot5/public_html/app/design/frontend/smartwave/porto/template/bestseller/bestseller.phtml on line 64
